@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Linq;
 namespace PatientManagementSys.Application.PatientCommands
 {
-    public class SearchPatientByKeywordQuery : IRequest<List<PatientRecords>>
+    public class SearchPatientByKeywordQuery : IRequest<IEnumerable<PatientRecords>>
     {
         private readonly string patient;
         public SearchPatientByKeywordQuery(string patient)
@@ -17,7 +17,7 @@ namespace PatientManagementSys.Application.PatientCommands
             this.patient = patient;
         }
 
-        public class SearchPatientByKeywordQueryHandler : IRequestHandler<SearchPatientByKeywordQuery,List<PatientRecords>>
+        public class SearchPatientByKeywordQueryHandler : IRequestHandler<SearchPatientByKeywordQuery,IEnumerable<PatientRecords>>
         {
             private readonly IPatientManagementSysDbContext dbContext;
 
@@ -26,7 +26,7 @@ namespace PatientManagementSys.Application.PatientCommands
                 this.dbContext = dbContext;
             }
 
-            public async Task<List<PatientRecords>> Handle(SearchPatientByKeywordQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<PatientRecords>> Handle(SearchPatientByKeywordQuery request, CancellationToken cancellationToken)
             {
                 var _q = from a in dbContext.PatientRecords
                          where a.LastName.Contains(request.patient) 
