@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace StudentEnrollmentSystem.Application.SEScrudCommands
 {
-    public class SearchStudentSubjectsCommand : IRequest<List<StudentSubjectList>>
+    public class SearchStudentSubjectsCommand : IRequest<IEnumerable<StudentSubjectList>>
     {
         private readonly int searchSubjectDetailsID;
         public SearchStudentSubjectsCommand(int searchSubjectDetailsID)
