@@ -30,9 +30,18 @@ namespace PatientManagementSys.Application
             {
 
                 var c = dbContext.PatientRecords.Find(request.patient.ID);
-                c.LastName = request.patient.LastName;
-                c.FirstName = request.patient.FirstName;
-                c.MiddleName = request.patient.MiddleName;
+                if (c == null)
+                {
+                    throw new Exception("Patient not found!");
+                }
+                else
+                {
+                    c.LastName = request.patient.LastName;
+                    c.FirstName = request.patient.FirstName;
+                    c.MiddleName = request.patient.MiddleName;
+                }
+
+               
 
                 await dbContext.SaveChangesAsync();
                 return c;

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Domain.Entities;
 using System;

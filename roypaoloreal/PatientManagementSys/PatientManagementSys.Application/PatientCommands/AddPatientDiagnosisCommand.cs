@@ -11,10 +11,10 @@ namespace PatientManagementSys.Application.PatientCommands
 {
     public class AddPatientDiagnosisCommand : IRequest<PatientRecords>
     {
-        private readonly int PatientID;
+        private readonly long PatientID;
         private readonly string Diseases;
 
-        public AddPatientDiagnosisCommand(int patientID, string diseases)
+        public AddPatientDiagnosisCommand(long patientID, string diseases)
         {
             PatientID = patientID;
             Diseases = diseases;

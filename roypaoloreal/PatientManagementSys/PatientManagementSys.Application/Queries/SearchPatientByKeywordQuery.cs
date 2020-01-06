@@ -30,12 +30,18 @@ namespace PatientManagementSys.Application.PatientCommands
 
             public async Task<IEnumerable<PatientRecords>> Handle(SearchPatientByKeywordQuery request, CancellationToken cancellationToken)
             {
+
+
                 var _q = from a in dbContext.PatientRecords
                          where a.LastName.Contains(request.patient)
                             || a.FirstName.Contains(request.patient)
                             || a.MiddleName.Contains(request.patient)
+                            || a.diseases.Contains(request.patient)
                          select a;
-
+                if (!_q.Any())
+                {
+                    throw new Exception("Patient not found!");
+                }
                 return await _q.ToListAsync();
             }
         }

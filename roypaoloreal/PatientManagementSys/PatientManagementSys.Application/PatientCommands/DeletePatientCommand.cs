@@ -11,9 +11,9 @@ namespace PatientManagementSys.Application.PatientCommands
 {
     public class DeletePatientCommand : IRequest
     {
-        private readonly int patientID;
+        private readonly long patientID;
 
-        public DeletePatientCommand(int patientID)
+        public DeletePatientCommand(long patientID)
         {
             this.patientID = patientID;
         }

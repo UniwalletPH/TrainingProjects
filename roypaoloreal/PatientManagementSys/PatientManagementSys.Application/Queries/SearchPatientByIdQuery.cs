@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Domain.Entities;
 using System;
@@ -13,8 +12,8 @@ namespace PatientManagementSys.Application.PatientCommands
 {
     public class SearchPatientByIdQuery : IRequest<PatientRecords>
     {
-        private readonly int patient;
-        public SearchPatientByIdQuery(int patient)
+        private readonly long patient;
+        public SearchPatientByIdQuery(long patient)
         {
             this.patient = patient;
         }
@@ -30,7 +29,10 @@ namespace PatientManagementSys.Application.PatientCommands
             public async Task<PatientRecords> Handle(SearchPatientByIdQuery request, CancellationToken cancellationToken)
             {
                 PatientRecords c = dbContext.PatientRecords.Find(request.patient);
-
+                if (c == null)
+                {
+                    throw new Exception("Patient not found!");
+                }
                 return c;
             }
         }
