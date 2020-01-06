@@ -12,6 +12,7 @@ using EManager.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using EManager.Application.Interfaces;
 using Employee_Management_System;
+using EManager.Domain.Enums;
 
 namespace EmployeeTimeRecord
 {
@@ -54,7 +55,7 @@ namespace EmployeeTimeRecord
                     {
                         EmployeeInformationID = employeeID,
                         Time = time,
-                        RecordType = EManager.Enums.RecordType.TimeIn
+                        RecordType = RecordType.TimeIn
                     };
 
                     SaveTimeRecordCommand saveTimeRecordCommand = new SaveTimeRecordCommand(timeRecord);
@@ -89,7 +90,7 @@ namespace EmployeeTimeRecord
                     {
                         EmployeeInformationID = _employeeID,
                         Time = _time,
-                        RecordType = EManager.Enums.RecordType.TimeOut
+                        RecordType = RecordType.TimeOut
                     };
 
                     SaveTimeRecordCommand _saveTimeRecordCommand = new SaveTimeRecordCommand(_timeRecord);

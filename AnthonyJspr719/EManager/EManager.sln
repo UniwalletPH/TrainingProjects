@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EManager", "EManager\EManager.csproj", "{EE83F540-4566-4253-AB9E-FEF64A829AE2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{274EA22C-FFCE-4808-9CCA-E39B7CCD6EBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{CDAC4AB2-B8CB-4D90-80A1-032A5896DDDE}"
@@ -23,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{0E184503-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagementSystem", "EmployeeManagementSystem\EmployeeManagementSystem.csproj", "{61C96F61-3DA0-48A7-ABA4-A351274C3E19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeTimeRecord", "EmployeeTimeRecord\EmployeeTimeRecord.csproj", "{D7FEEF4F-6913-4EE4-B45A-32F5DBEB7A78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeTimeRecord", "EmployeeTimeRecord\EmployeeTimeRecord.csproj", "{D7FEEF4F-6913-4EE4-B45A-32F5DBEB7A78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EE83F540-4566-4253-AB9E-FEF64A829AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE83F540-4566-4253-AB9E-FEF64A829AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE83F540-4566-4253-AB9E-FEF64A829AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE83F540-4566-4253-AB9E-FEF64A829AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{272AE8E8-F8C3-4DDD-B02E-3E911ACBBF5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{272AE8E8-F8C3-4DDD-B02E-3E911ACBBF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{272AE8E8-F8C3-4DDD-B02E-3E911ACBBF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,7 +54,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EE83F540-4566-4253-AB9E-FEF64A829AE2} = {262CFA7C-6243-4AA6-9748-4E0507D18DDD}
 		{262CFA7C-6243-4AA6-9748-4E0507D18DDD} = {CDAC4AB2-B8CB-4D90-80A1-032A5896DDDE}
 		{D46FD803-4292-4E7A-A7EF-11048D947425} = {CDAC4AB2-B8CB-4D90-80A1-032A5896DDDE}
 		{272AE8E8-F8C3-4DDD-B02E-3E911ACBBF5B} = {262CFA7C-6243-4AA6-9748-4E0507D18DDD}

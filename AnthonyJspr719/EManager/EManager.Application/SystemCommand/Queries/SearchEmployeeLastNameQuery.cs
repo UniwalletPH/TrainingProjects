@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace EManager.Application.SystemCommand.Commands
 {
-    public class SearchEmployeeLastNameCommand : IRequest<List<EmployeeInformation>>
+    public class SearchEmployeeLastNameQuery : IRequest<List<EmployeeInformation>>
     {
         private readonly string toFind;
-        public SearchEmployeeLastNameCommand(string toFind)
+        public SearchEmployeeLastNameQuery(string toFind)
         {
             this.toFind = toFind;
         }
 
-        public class SearchEmployeeLastNameCommandHandler : BaseRequestHandler, IRequestHandler<SearchEmployeeLastNameCommand, List<EmployeeInformation>>
+        public class SearchEmployeeLastNameCommandHandler : BaseRequestHandler, IRequestHandler<SearchEmployeeLastNameQuery, List<EmployeeInformation>>
         {
 
             public SearchEmployeeLastNameCommandHandler(IEManagerDbContext dbContext) : base(dbContext)
@@ -28,7 +28,7 @@ namespace EManager.Application.SystemCommand.Commands
             
             }
 
-            public async Task<List<EmployeeInformation>> Handle(SearchEmployeeLastNameCommand request, CancellationToken cancellationToken)
+            public async Task<List<EmployeeInformation>> Handle(SearchEmployeeLastNameQuery request, CancellationToken cancellationToken)
             {
                 var entryToFind = dbContext.EmployeeInformation.Where(a => a.LastName.Contains(request.toFind) || a.FirstName.Contains(request.toFind) || a.MiddleName.Contains(request.toFind));
 

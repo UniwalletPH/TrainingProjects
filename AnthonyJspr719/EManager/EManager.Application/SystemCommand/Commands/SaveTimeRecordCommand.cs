@@ -1,7 +1,7 @@
 ﻿using EManager.Application.Common.Base;
 using EManager.Application.Interfaces;
 using EManager.Domain.Entities;
-using EManager.Enums;
+using EManager.Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace EManager.Application.SystemCommand.Commands
                     EmployeeTimeRecords _timeRecord = new EmployeeTimeRecords
                     {
                         EmployeeInformationID = request.employeeTimeRecords.EmployeeInformationID,
-                        RecordType = Enums.RecordType.TimeIn,
+                        RecordType = RecordType.TimeIn,
                         Time = request.employeeTimeRecords.Time
                     };
 
@@ -49,7 +49,7 @@ namespace EManager.Application.SystemCommand.Commands
                     EmployeeTimeRecords _timeRecord = new EmployeeTimeRecords
                     {
                         EmployeeInformationID = request.employeeTimeRecords.EmployeeInformationID,
-                        RecordType = Enums.RecordType.TimeOut,
+                        RecordType = RecordType.TimeOut,
                         Time = request.employeeTimeRecords.Time
                     };
 

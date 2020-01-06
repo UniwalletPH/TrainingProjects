@@ -72,7 +72,6 @@ namespace Employee_Management_System
                     
                     EmployeeInformation employeeInformation = new EmployeeInformation
                     {
-
                         FirstName = firstName,
                         MiddleName = middleName,
                         LastName = lastName,
@@ -81,17 +80,13 @@ namespace Employee_Management_System
                         DateOfBirth = born     
                     };
 
-
-                    CheckEmployeeAgeCommand checkEmployeeAge = new CheckEmployeeAgeCommand(employeeInformation.Age);
-                    var checkRes = await Mediator.Send(checkEmployeeAge);
-
+                    var checkRes = await Mediator.Send(new CheckEmployeeAgeCommand(employeeInformation.Age));
 
                     if (checkRes == true)
                     {
-                        SaveInfoCommand saveInfoCommand = new SaveInfoCommand(employeeInformation);
-                        var res = await Mediator.Send(saveInfoCommand);
+                        var res = await Mediator.Send(new SaveInfoCommand(employeeInformation));
 
-                        if (res == true)
+                        if (res > 0)
                         {
                             Console.WriteLine("SAVED");
                         }
@@ -146,12 +141,7 @@ namespace Employee_Management_System
                     int _selectedID = int.Parse(_idChosen);
 
 
-                    EmployeeInformation selectedEmployeeID = new EmployeeInformation
-                    {
-                        ID = _selectedID
-                    };
-
-                    DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(selectedEmployeeID);
+                    DeleteInfoCommand deleteInfoCommand = new DeleteInfoCommand(_selectedID);
 
                     var _returnVal = await Mediator.Send(deleteInfoCommand);
                     if (_returnVal == true) {
@@ -199,7 +189,7 @@ namespace Employee_Management_System
                     Console.WriteLine("ENTRY");
                     var searchEntry = Console.ReadLine();
 
-                    SearchEmployeeLastNameCommand searchEmployeeLastNameCommand = new SearchEmployeeLastNameCommand(searchEntry);
+                    SearchEmployeeLastNameQuery searchEmployeeLastNameCommand = new SearchEmployeeLastNameQuery(searchEntry);
                    var  searchedEntries = await Mediator.Send(searchEmployeeLastNameCommand);
 
                     foreach (var item in searchedEntries)

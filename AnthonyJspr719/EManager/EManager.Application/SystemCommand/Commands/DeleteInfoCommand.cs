@@ -12,21 +12,25 @@ namespace EManager.Application.SystemCommand.Commands
 {
     public class DeleteInfoCommand : IRequest<bool>
     {
-        private readonly EmployeeInformation toDelete;
+        private readonly int ID;
 
-        public DeleteInfoCommand(EmployeeInformation toDelete)
+        public DeleteInfoCommand(int id)
         {
-            this.toDelete = toDelete;
+            ID = id;
         }
 
-        public class DeleteInfoCommandHandler : BaseRequestHandler, IRequestHandler<DeleteInfoCommand, bool>
+        public class DeleteInfoCommandHandler : IRequestHandler<DeleteInfoCommand, bool>
         {
+            private readonly IEManagerDbContext dbContext;
 
-            public DeleteInfoCommandHandler(IEManagerDbContext dbContext) : base(dbContext) { }
+            public DeleteInfoCommandHandler(IEManagerDbContext dbContext)
+            {
+                this.dbContext = dbContext;
+            }
 
             public async Task<bool> Handle(DeleteInfoCommand request, CancellationToken cancellationToken)
             {
-                var employeeToDelete = dbContext.EmployeeInformation.Find(request.toDelete.ID);
+                var employeeToDelete = dbContext.EmployeeInformation.Find(request.ID);
 
                 dbContext.EmployeeInformation.Remove(employeeToDelete);
                 await dbContext.SaveChangesAsync();

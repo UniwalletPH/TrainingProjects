@@ -1,5 +1,5 @@
 ﻿using EManager.Domain.Entities.Base;
-using EManager.Enums;
+using EManager.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

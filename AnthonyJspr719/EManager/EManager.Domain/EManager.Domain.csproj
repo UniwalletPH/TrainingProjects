@@ -12,8 +12,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EManager\EManager.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -24,7 +24,6 @@
     <ProjectReference Include="..\EManager.Application\EManager.Application.csproj" />
     <ProjectReference Include="..\EManager.Domain\EManager.Domain.csproj" />
     <ProjectReference Include="..\EManager.Infrastructure\EManager.Infrastructure.csproj" />
-    <ProjectReference Include="..\EManager\EManager.csproj" />
   </ItemGroup>
 
 </Project>
