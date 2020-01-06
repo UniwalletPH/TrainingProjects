@@ -9,29 +9,34 @@ using System.Threading.Tasks;
 
 namespace PatientManagementSys.Application.PatientCommands
 {
-    public class DeletePatientCommand : IRequest<PatientRecords>
+    public class DeletePatientCommand : IRequest
     {
-        private readonly int patient;
+        private readonly int patientID;
 
-        public DeletePatientCommand(int patient)
+        public DeletePatientCommand(int patientID)
         {
-            this.patient = patient;
+            this.patientID = patientID;
         }
 
-        public class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand, PatientRecords>
+        public class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand>
         {
             private readonly IPatientManagementSysDbContext dbContext;
             public DeletePatientCommandHandler(IPatientManagementSysDbContext dbContext)
             {
                 this.dbContext = dbContext;
             }
-            public async Task<PatientRecords> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
             {
-                var c = dbContext.PatientRecords.Find(request.patient);
-                dbContext.PatientRecords.Remove(c);
+                var c = dbContext.PatientRecords.Find(request.patientID);
 
-                await dbContext.SaveChangesAsync();
-                return c;
+                if (c != null)
+                {
+                    dbContext.PatientRecords.Remove(c);
+
+                    await dbContext.SaveChangesAsync();
+                }
+
+                return Unit.Value;
             }
         }
 

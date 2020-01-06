@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 namespace PatientManagementSys.Application.PatientCommands
 {
     public class SearchPatientByKeywordQuery : IRequest<IEnumerable<PatientRecords>>
@@ -29,18 +31,12 @@ namespace PatientManagementSys.Application.PatientCommands
             public async Task<IEnumerable<PatientRecords>> Handle(SearchPatientByKeywordQuery request, CancellationToken cancellationToken)
             {
                 var _q = from a in dbContext.PatientRecords
-                         where a.LastName.Contains(request.patient) 
-                            || a.FirstName.Contains(request.patient) 
+                         where a.LastName.Contains(request.patient)
+                            || a.FirstName.Contains(request.patient)
                             || a.MiddleName.Contains(request.patient)
-                         select new PatientRecords
-                         {
-                             ID = a.ID,
-                             LastName = a.LastName,
-                             FirstName = a.FirstName,
-                             MiddleName = a.MiddleName
-                         };
-                var x = _q.ToString();
-                return _q.ToList();
+                         select a;
+
+                return await _q.ToListAsync();
             }
         }
     }

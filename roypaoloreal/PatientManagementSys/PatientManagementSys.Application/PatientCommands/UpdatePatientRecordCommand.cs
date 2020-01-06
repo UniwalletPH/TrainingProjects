@@ -36,9 +36,7 @@ namespace PatientManagementSys.Application
 
                 await dbContext.SaveChangesAsync();
                 return c;
-                }
             }
         }
-
     }
-
+}

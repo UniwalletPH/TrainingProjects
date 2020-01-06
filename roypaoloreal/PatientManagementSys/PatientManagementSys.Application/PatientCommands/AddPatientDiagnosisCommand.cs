@@ -11,11 +11,13 @@ namespace PatientManagementSys.Application.PatientCommands
 {
     public class AddPatientDiagnosisCommand : IRequest<PatientRecords>
     {
+        private readonly int PatientID;
+        private readonly string Diseases;
 
-        private readonly PatientRecords patient;
-        public AddPatientDiagnosisCommand(PatientRecords patient)
+        public AddPatientDiagnosisCommand(int patientID, string diseases)
         {
-            this.patient = patient;
+            PatientID = patientID;
+            Diseases = diseases;
         }
 
         public class AddPatientDiagnosisCommandHandler : IRequestHandler<AddPatientDiagnosisCommand, PatientRecords>
@@ -27,10 +29,17 @@ namespace PatientManagementSys.Application.PatientCommands
             }
             public async Task<PatientRecords> Handle(AddPatientDiagnosisCommand request, CancellationToken cancellationToken)
             {
-                var c = dbContext.PatientRecords.Find(request.patient.ID);
-                c.diseases = request.patient.diseases;
+                var c = dbContext.PatientRecords.Find(request.PatientID);
+
+                if (c == null)
+                {
+                    throw new Exception("Patient not found!");
+                }
+
+                c.diseases = request.Diseases;
 
                 await dbContext.SaveChangesAsync();
+
                 return c;
             }
         }
