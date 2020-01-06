@@ -442,7 +442,6 @@ namespace Student_Enrollment_System
                     SearchStudentSubjectsCommand _searchStudentSubjectsCommand = new SearchStudentSubjectsCommand(_searchedStudentSubjects);
                     var _searchedStudentSubjectsCommand = await Mediator.Send(_searchStudentSubjectsCommand);
 
-
                     Console.WriteLine();
                     Console.WriteLine("Subject List: ");
                     Console.WriteLine("1 - Math");

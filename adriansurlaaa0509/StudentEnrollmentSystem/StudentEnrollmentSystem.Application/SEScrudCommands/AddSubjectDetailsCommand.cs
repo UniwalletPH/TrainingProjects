@@ -10,19 +10,20 @@ using System.Threading.Tasks;
 
 namespace StudentEnrollmentSystem.Application.SEScrudCommands
 {
-    public class AddSubjectDetailsCommand : IRequest<bool>
+    public class AddSubjectDetailsCommand : IRequest<int>
     {
-        private readonly int studentBasicInfo; 
-        private readonly StudentSubjects studentSubject;
-        private readonly StudentProfessor studentProfessor;
-        private readonly EnrollmentDetails enrollmentDetails;
+        private readonly int studentBasicInfo;
+        private readonly int subjectID;
+        private readonly int professorID;
+        private readonly int enrollmentDetailsID;
 
-        public AddSubjectDetailsCommand (int studentBasicInfo, StudentSubjects studentSubject, StudentProfessor studentProfessor, EnrollmentDetails enrollmentDetails)
+
+        public AddSubjectDetailsCommand (int studentBasicInfo, int subjectID, int professorID, int enrollmentDetailsID)
         {
             this.studentBasicInfo = studentBasicInfo;
-            this.studentSubject = studentSubject;
-            this.studentProfessor = studentProfessor;
-            this.enrollmentDetails = enrollmentDetails;
+            this.subjectID = subjectID;
+            this.professorID = professorID;
+            this.enrollmentDetailsID = enrollmentDetailsID;
         }
 
         public class AddSubjectDetailsCommandHandler : BaseRequestHandler, IRequestHandler<AddSubjectDetailsCommand, bool>
@@ -37,7 +38,7 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
                 StudentSubjectList _studentSubjectList = new StudentSubjectList
                 {
                     StudentBasicInfoID = request.studentBasicInfo,
-                    StudentSubjectsID = request.studentSubject.ID,
+                    StudentSubjectsID = request.subjectID,
                     StudentProfessorID = request.studentProfessor.ID,
                     EnrollmentDetailsID = request.enrollmentDetails.ID
                 };
