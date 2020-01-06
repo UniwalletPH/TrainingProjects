@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{825F5BED-99DA-49FE-8214-D8C66EF3E4D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{BAF96CF0-986A-4752-8E94-0D91D931263D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9A0A2CB2-8A97-47EF-91FB-22C3E8D6428F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentEnrollmentSystem.Application", "StudentEnrollmentSystem.Application\StudentEnrollmentSystem.Application.csproj", "{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656} = {D61FEDF1-746E-4AD7-B1BA-1619245A4656}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentEnrollmentSystem.Domain", "StudentEnrollmentSystem.Domain\StudentEnrollmentSystem.Domain.csproj", "{D61FEDF1-746E-4AD7-B1BA-1619245A4656}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentEnrollmentSystem.Infrastructure", "StudentEnrollmentSystem.Infrastructure\StudentEnrollmentSystem.Infrastructure.csproj", "{7BA12370-A138-47F9-BC64-91B7818D0B10}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656} = {D61FEDF1-746E-4AD7-B1BA-1619245A4656}
+		{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124} = {A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2F13C593-5BCC-4A53-94A4-1F98631A3F3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{367FC920-E1C0-4DB4-B179-A399F9167AD4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Student Enrollment System", "Student Enrollment System\Student Enrollment System.csproj", "{9AF4C285-4ED2-45BB-A670-3FAE81C01982}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7BA12370-A138-47F9-BC64-91B7818D0B10} = {7BA12370-A138-47F9-BC64-91B7818D0B10}
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656} = {D61FEDF1-746E-4AD7-B1BA-1619245A4656}
+		{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124} = {A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BA12370-A138-47F9-BC64-91B7818D0B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA12370-A138-47F9-BC64-91B7818D0B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA12370-A138-47F9-BC64-91B7818D0B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA12370-A138-47F9-BC64-91B7818D0B10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF4C285-4ED2-45BB-A670-3FAE81C01982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF4C285-4ED2-45BB-A670-3FAE81C01982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF4C285-4ED2-45BB-A670-3FAE81C01982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF4C285-4ED2-45BB-A670-3FAE81C01982}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A9A0B4FF-2EE8-4ACB-A3BA-A24867EBF124} = {2F13C593-5BCC-4A53-94A4-1F98631A3F3E}
+		{D61FEDF1-746E-4AD7-B1BA-1619245A4656} = {2F13C593-5BCC-4A53-94A4-1F98631A3F3E}
+		{7BA12370-A138-47F9-BC64-91B7818D0B10} = {2F13C593-5BCC-4A53-94A4-1F98631A3F3E}
+		{2F13C593-5BCC-4A53-94A4-1F98631A3F3E} = {BAF96CF0-986A-4752-8E94-0D91D931263D}
+		{367FC920-E1C0-4DB4-B179-A399F9167AD4} = {BAF96CF0-986A-4752-8E94-0D91D931263D}
+		{9AF4C285-4ED2-45BB-A670-3FAE81C01982} = {367FC920-E1C0-4DB4-B179-A399F9167AD4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD713B51-400E-4F72-8D06-23EF0CE35092}
+	EndGlobalSection
+EndGlobal
