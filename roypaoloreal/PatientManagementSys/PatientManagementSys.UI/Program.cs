@@ -111,7 +111,7 @@ namespace PatientManagementSys.UI
                         ID = _patientIdFind1
                     };
 
-                    SearchPatientByIdCommand _searchPatient = new SearchPatientByIdCommand(_patient);
+                    SearchPatientByIdQuery _searchPatient = new SearchPatientByIdQuery(_patient);
                     var _searchPatient1 = await Mediator.Send(_searchPatient);
 
                     Console.WriteLine("Here is the patient record:");
@@ -123,7 +123,7 @@ namespace PatientManagementSys.UI
                     Console.Write("Please enter any information of the patient:");
                     string _patientLastNameFind = Console.ReadLine();
 
-                    SearchPatientByKeywordCommand _searchPatientLastName = new SearchPatientByKeywordCommand(_patientLastNameFind);
+                    SearchPatientByKeywordQuery _searchPatientLastName = new SearchPatientByKeywordQuery(_patientLastNameFind);
                     var _searchPatientLastName1 = await Mediator.Send(_searchPatientLastName);
 
                     Console.WriteLine("Here is the patient record:");

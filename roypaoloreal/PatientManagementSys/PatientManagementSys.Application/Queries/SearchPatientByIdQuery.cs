@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Domain.Entities;
 using System;
@@ -9,31 +11,28 @@ using System.Threading.Tasks;
 
 namespace PatientManagementSys.Application.PatientCommands
 {
-    public class DeletePatientCommand : IRequest<PatientRecords>
+    public class SearchPatientByIdQuery : IRequest<PatientRecords>
     {
         private readonly int patient;
-
-        public DeletePatientCommand(int patient)
+        public SearchPatientByIdQuery(int patient)
         {
             this.patient = patient;
         }
 
-        public class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand, PatientRecords>
+        public class SearchPatientByIdQueryHandler : IRequestHandler<SearchPatientByIdQuery, PatientRecords>
         {
             private readonly IPatientManagementSysDbContext dbContext;
-            public DeletePatientCommandHandler(IPatientManagementSysDbContext dbContext)
+            public SearchPatientByIdQueryHandler(IPatientManagementSysDbContext dbContext)
             {
                 this.dbContext = dbContext;
             }
-            public async Task<PatientRecords> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
-            {
-                var c = dbContext.PatientRecords.Find(request.patient);
-                dbContext.PatientRecords.Remove(c);
 
-                await dbContext.SaveChangesAsync();
+            public async Task<PatientRecords> Handle(SearchPatientByIdQuery request, CancellationToken cancellationToken)
+            {
+                PatientRecords c = dbContext.PatientRecords.Find(request.patient);
+
                 return c;
             }
         }
-
     }
 }

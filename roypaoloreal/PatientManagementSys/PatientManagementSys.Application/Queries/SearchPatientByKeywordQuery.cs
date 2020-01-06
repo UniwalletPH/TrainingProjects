@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Domain.Entities;
 using System;
@@ -10,24 +9,24 @@ using System.Threading.Tasks;
 using System.Linq;
 namespace PatientManagementSys.Application.PatientCommands
 {
-    public class SearchPatientByKeywordCommand : IRequest<List<PatientRecords>>
+    public class SearchPatientByKeywordQuery : IRequest<List<PatientRecords>>
     {
         private readonly string patient;
-        public SearchPatientByKeywordCommand(string patient)
+        public SearchPatientByKeywordQuery(string patient)
         {
             this.patient = patient;
         }
 
-        public class SearchPatientByKeywordCommandHandler : BaseRequestHandler, IRequestHandler<SearchPatientByKeywordCommand,List<PatientRecords>>
+        public class SearchPatientByKeywordQueryHandler : IRequestHandler<SearchPatientByKeywordQuery,List<PatientRecords>>
         {
-            
+            private readonly IPatientManagementSysDbContext dbContext;
 
-            public SearchPatientByKeywordCommandHandler(IPatientManagementSysDbContext dbContext) : base(dbContext)
+            public SearchPatientByKeywordQueryHandler(IPatientManagementSysDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
-            public async Task<List<PatientRecords>> Handle(SearchPatientByKeywordCommand request, CancellationToken cancellationToken)
+            public async Task<List<PatientRecords>> Handle(SearchPatientByKeywordQuery request, CancellationToken cancellationToken)
             {
                 var _q = from a in dbContext.PatientRecords
                          where a.LastName.Contains(request.patient) 

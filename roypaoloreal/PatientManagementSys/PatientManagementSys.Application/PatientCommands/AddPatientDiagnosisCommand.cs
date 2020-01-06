@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Domain.Entities;
 using System;
@@ -19,11 +18,12 @@ namespace PatientManagementSys.Application.PatientCommands
             this.patient = patient;
         }
 
-        public class AddPatientDiagnosisCommandHandler : BaseRequestHandler, IRequestHandler<AddPatientDiagnosisCommand, PatientRecords>
+        public class AddPatientDiagnosisCommandHandler : IRequestHandler<AddPatientDiagnosisCommand, PatientRecords>
         {
-            public AddPatientDiagnosisCommandHandler(IPatientManagementSysDbContext dbContext) : base(dbContext)
+            private readonly IPatientManagementSysDbContext dbContext;
+            public AddPatientDiagnosisCommandHandler(IPatientManagementSysDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
             public async Task<PatientRecords> Handle(AddPatientDiagnosisCommand request, CancellationToken cancellationToken)
             {

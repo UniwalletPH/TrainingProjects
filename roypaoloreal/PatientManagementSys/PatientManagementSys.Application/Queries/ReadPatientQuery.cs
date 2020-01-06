@@ -11,22 +11,23 @@ using System.Threading.Tasks;
 
 namespace PatientManagementSys.Application.PatientCommands
 {
-    public class ReadPatientCommand : IRequest<List<PatientRecords>>
+    public class ReadPatientQuery : IRequest<IEnumerable<PatientRecords>>
     {
-        private readonly PatientRecords patient;
         
-        public ReadPatientCommand()
+        public ReadPatientQuery()
         {
             
         }
 
-        public class ReadPatientCommandHandler : BaseRequestHandler, IRequestHandler<ReadPatientCommand, List<PatientRecords>>
+        public class ReadPatientQueryHandler : IRequestHandler<ReadPatientQuery, IEnumerable<PatientRecords>>
         {
-            public ReadPatientCommandHandler(IPatientManagementSysDbContext dbContext) : base(dbContext)
+            private readonly IPatientManagementSysDbContext dbContext;
+            public ReadPatientQueryHandler(IPatientManagementSysDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
-            public async Task<List<PatientRecords>> Handle(ReadPatientCommand request, CancellationToken cancellationToken)
+
+            async Task<IEnumerable<PatientRecords>> IRequestHandler<ReadPatientQuery, IEnumerable<PatientRecords>>.Handle(ReadPatientQuery request, CancellationToken cancellationToken)
             {
                 var _patientRecordList = await dbContext.PatientRecords.ToListAsync();
 

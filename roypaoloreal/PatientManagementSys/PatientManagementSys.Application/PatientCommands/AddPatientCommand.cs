@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Application.Queries;
 using PatientManagementSys.Domain.Entities;
@@ -17,11 +16,13 @@ namespace PatientManagementSys.Application
             this.patient = patient;
         }
 
-        public class AddPatientCommandHandler : BaseRequestHandler, IRequestHandler<AddPatientCommand, PatientRecords>
+        public class AddPatientCommandHandler : IRequestHandler<AddPatientCommand, PatientRecords>
         {
-            public AddPatientCommandHandler(IPatientManagementSysDbContext dbContext) : base(dbContext)
+            private readonly IPatientManagementSysDbContext dbContext;
+            
+            public AddPatientCommandHandler(IPatientManagementSysDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
             async Task<PatientRecords> IRequestHandler<AddPatientCommand, PatientRecords>.Handle(AddPatientCommand request, CancellationToken cancellationToken)
