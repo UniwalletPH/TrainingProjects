@@ -1,4 +1,4 @@
-﻿using EManager.Application.Common.Base;
+﻿
 using EManager.Application.Interfaces;
 using MediatR;
 using System;

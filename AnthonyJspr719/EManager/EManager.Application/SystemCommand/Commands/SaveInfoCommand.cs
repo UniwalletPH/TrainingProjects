@@ -1,6 +1,7 @@
-﻿using EManager.Application.Common.Base;
+﻿
 using EManager.Application.Interfaces;
 using EManager.Domain.Entities;
+using FluentValidation;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,23 @@ namespace EManager.Application.SystemCommand.Commands
         public SaveInfoCommand(EmployeeInformation employeeInformation) {
 
             this.employeeInformation = employeeInformation;
+           
+        }
+
+        public class SaveInfoCommandValidator : AbstractValidator<SaveInfoCommand>
+        {
+            public SaveInfoCommandValidator(IMediator mediator)
+            {
+                RuleFor(a => a.employeeInformation.Age).GreaterThan(2);
+                RuleFor(a => a.employeeInformation.FirstName).NotNull();
+
+                List<string> _fistNames = new List<string>();
+                _fistNames.Add("Vincent");
+                _fistNames.Add("Enteng");
+
+                RuleFor(a => a.employeeInformation.FirstName)
+                    .Must(a => !_fistNames.Contains(a)).WithMessage("That name is already taken!");
+            }
         }
 
         public class SaveInfoCommandHandler :  IRequestHandler<SaveInfoCommand, int>
@@ -39,6 +57,11 @@ namespace EManager.Application.SystemCommand.Commands
                     DateOfBirth = request.employeeInformation.DateOfBirth,
                     Age = request.employeeInformation.Age
                 };
+
+                //if (_employeeInformation.Age > 1)
+                //{
+                //    throw new Exception();
+                //}
 
 
                 dbContext.EmployeeInformation.Add(_employeeInformation);
