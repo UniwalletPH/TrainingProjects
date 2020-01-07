@@ -5,9 +5,10 @@ using System.Text;
 
 namespace StudentEnrollmentSystem.Domain.Entities
 {
-    public class StudentSubjectList : BaseEntity
+    public class StudentSubjectList
     {
-        
+        public int ID { get; set; }
+
         public int StudentBasicInfoID { get; set; }
      
         public int StudentSubjectsID { get; set; }

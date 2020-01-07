@@ -9,7 +9,7 @@ using StudentEnrollmentSystem.Application.Common.Base;
 using StudentEnrollmentSystem.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Commands
 {
     public class DeleteStudentInfoCommand : IRequest<bool>
     {
@@ -19,18 +19,27 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             this.myStudentBasicInfo = myStudentBasicInfo;
         }
 
-        public class DeleteStudentInfoCommandHandler : BaseRequestHandler, IRequestHandler<DeleteStudentInfoCommand, bool>
+        public class DeleteStudentInfoCommandHandler : IRequestHandler<DeleteStudentInfoCommand, bool>
         {
-            public DeleteStudentInfoCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public DeleteStudentInfoCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
             public async Task<bool> Handle(DeleteStudentInfoCommand request, CancellationToken cancellationToken)
             {
                 var _deleteStudentInfo = dbContext.StudentSubjectLists.Find(request.myStudentBasicInfo.ID);
 
-                dbContext.StudentSubjectLists.Remove(_deleteStudentInfo);
+                if (_deleteStudentInfo != null)
+                {
+                    dbContext.StudentSubjectLists.Remove(_deleteStudentInfo);
+                }
+                else
+                {
+                    throw new Exception("Student ID does not exist!");
+                }
+
 
                 await dbContext.SaveChangesAsync();
 

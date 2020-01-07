@@ -6,8 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentEnrollmentSystem.Domain.Entities
 {
-    public class StudentBasicInfo : BaseEntity
+    public class StudentBasicInfo
     {
+        public int ID { get; set; }
+
         public string StudentFirstName { get; set; }
 
         public string StudentMiddleName { get; set; }

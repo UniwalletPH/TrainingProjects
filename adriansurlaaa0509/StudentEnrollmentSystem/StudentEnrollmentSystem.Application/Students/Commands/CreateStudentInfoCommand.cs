@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using StudentEnrollmentSystem.Application.Common.Base;
 using StudentEnrollmentSystem.Domain.Entities;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Commands
 {
     public class CreateStudentInfoCommand : IRequest<bool>
     {
@@ -20,11 +20,12 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             this.myStudentBasicInfo = myStudentBasicInfo;
         }
 
-        public class CreateStudentInfoCommandHandler : BaseRequestHandler, IRequestHandler<CreateStudentInfoCommand, bool>
+        public class CreateStudentInfoCommandHandler : IRequestHandler<CreateStudentInfoCommand, bool>
         {
-            public CreateStudentInfoCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public CreateStudentInfoCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
             public async Task<bool> Handle(CreateStudentInfoCommand request, CancellationToken cancellationToken)

@@ -10,7 +10,7 @@ using StudentEnrollmentSystem.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Commands
 {
     public class DeleteStudentSubjectCommand : IRequest<bool>
     {
@@ -22,11 +22,12 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             //this.selected = selected;
         }
 
-        public class DeleteStudentSubjectCommandHandler : BaseRequestHandler, IRequestHandler<DeleteStudentSubjectCommand, bool>
+        public class DeleteStudentSubjectCommandHandler : IRequestHandler<DeleteStudentSubjectCommand, bool>
         {
-            public DeleteStudentSubjectCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public DeleteStudentSubjectCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
             public async Task<bool> Handle(DeleteStudentSubjectCommand request, CancellationToken cancellationToken)

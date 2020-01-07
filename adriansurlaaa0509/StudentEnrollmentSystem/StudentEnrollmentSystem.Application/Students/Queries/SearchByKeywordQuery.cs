@@ -9,24 +9,24 @@ using System.Threading;
 using StudentEnrollmentSystem.Application.Interfaces;
 using System.Linq;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Queries
 {
-    public class SearchByKeywordCommand : IRequest<List<StudentBasicInfo>>
+    public class SearchByKeywordQuery : IRequest<IEnumerable<StudentBasicInfo>>
     {
         private readonly string searchKeyword;
-        public SearchByKeywordCommand(string searchKeyword)
+        public SearchByKeywordQuery(string searchKeyword)
         {
             this.searchKeyword = searchKeyword;
         }
 
-        public class SearchByKeywordCommandHandler : BaseRequestHandler, IRequestHandler<SearchByKeywordCommand, List<StudentBasicInfo>>
+        public class SearchByKeywordCommandHandler : IRequestHandler<SearchByKeywordQuery, IEnumerable<StudentBasicInfo>>
         {
-
-            public SearchByKeywordCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public SearchByKeywordCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
-            public async Task<List<StudentBasicInfo>> Handle(SearchByKeywordCommand request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<StudentBasicInfo>> Handle(SearchByKeywordQuery request, CancellationToken cancellationToken)
             {
 
                 var _searchedKeyword = dbContext.StudentBasicInfos.Where(a => a.StudentLastName.Contains(request.searchKeyword) || 

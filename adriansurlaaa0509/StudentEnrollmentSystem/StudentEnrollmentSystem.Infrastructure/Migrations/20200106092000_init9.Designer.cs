@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentEnrollmentSystem.Infrastructure.Persistence;
 
 namespace StudentEnrollmentSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(StudentEnrollmentSystemDbContext))]
-    partial class StudentEnrollmentSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200106092000_init9")]
+    partial class init9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

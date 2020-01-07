@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Professors.Commands
 {
     public class AddProfessorCommand : IRequest<StudentProfessor>
     {
@@ -18,12 +18,13 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             this._professorID = _professorID;
         }
 
-        public class AddProfessorCommandHandler : BaseRequestHandler, IRequestHandler<AddProfessorCommand, StudentProfessor>
+        public class AddProfessorCommandHandler : IRequestHandler<AddProfessorCommand, StudentProfessor>
         {
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
 
-            public AddProfessorCommandHandler (IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            public AddProfessorCommandHandler (IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
             public async Task<StudentProfessor> Handle(AddProfessorCommand request, CancellationToken cancellationToken)
             {

@@ -11,8 +11,9 @@ namespace StudentEnrollmentSystem.Domain.Entities
         [Key]
         public int ID { get; set; }
 
-        public string enrollmentSemester { get; set; }
-        public string enrollmentYear { get; set; }
+        public string EnrollmentSemester { get; set; }
+
+        public string EnrollmentYear { get; set; }
 
     }
 }

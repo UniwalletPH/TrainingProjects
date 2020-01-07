@@ -11,6 +11,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using StudentEnrollmentSystem.Application.SEScrudCommands;
 using StudentEnrollmentSystem.Domain.Entities;
+using StudentEnrollmentSystem.Application.Students.Commands;
+using StudentEnrollmentSystem.Application.Students.Queries;
+using StudentEnrollmentSystem.Application.Schedule.Commands;
+using StudentEnrollmentSystem.Application.Professors.Commands;
 
 namespace Student_Enrollment_System
 {
@@ -94,8 +98,7 @@ namespace Student_Enrollment_System
                     };
 
 
-                    CreateStudentInfoCommand _createStudentInfoCommand = new CreateStudentInfoCommand(_studentBasicInfo);
-                    var _addStudentInfo = await Mediator.Send(_createStudentInfoCommand);
+                    var _addStudentInfo = await Mediator.Send(new CreateStudentInfoCommand(_studentBasicInfo));
 
                     if (_addStudentInfo == true)
                     {
@@ -110,8 +113,7 @@ namespace Student_Enrollment_System
                 #region Read Student Information
                 case "2":
 
-                    ReadStudentInfoCommand _readStudentInfoCommand = new ReadStudentInfoCommand();
-                    var _readStudentInfo = await Mediator.Send(_readStudentInfoCommand);
+                    var _readStudentInfo = await Mediator.Send(new ReadStudentInfoQuery());
 
                     foreach (var item in _readStudentInfo)
                     {
@@ -135,11 +137,11 @@ namespace Student_Enrollment_System
                 #region Update Student Information
                 case "3":
 
-                    ReadStudentInfoCommand _readStudentInfoCommand1 = new ReadStudentInfoCommand();
-                    var _readStudentInfo1 = await Mediator.Send(_readStudentInfoCommand1);
+                    var _readStudentInfo1 = await Mediator.Send(new ReadStudentInfoQuery());
 
                     foreach (var item in _readStudentInfo1)
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Student ID {0}  |  Last Name: {1}  |  First Name: {2}  |  Middle Name: {3}", item.ID, item.StudentLastName, item.StudentFirstName, item.StudentMiddleName);
                         Console.WriteLine("Age: {0}", item.StudentAge);
                         Console.WriteLine("Gender: {0}", item.StudentGender);
@@ -208,12 +210,12 @@ namespace Student_Enrollment_System
                 #region Delete Student Information
                 case "4":
 
-                    ReadStudentInfoCommand _readStudentInfoCommand2 = new ReadStudentInfoCommand();
-                    var _readStudentInfo2 = await Mediator.Send(_readStudentInfoCommand2);
+                    var _readStudentInfo2 = await Mediator.Send(new ReadStudentInfoQuery());
 
                     foreach (var item in _readStudentInfo2)
                     {
-                        Console.WriteLine("Student ID {0}  |  Last Name: {1}  |  First Name: {2}  |  Middle Name: {3}", item.ID, item.StudentLastName, item.StudentFirstName, item.StudentMiddleName);
+                        Console.WriteLine();
+                        Console.WriteLine("Student ID: {0}  |  Last Name: {1}  |  First Name: {2}  |  Middle Name: {3}", item.ID, item.StudentLastName, item.StudentFirstName, item.StudentMiddleName);
                         Console.WriteLine("Age: {0}", item.StudentAge);
                         Console.WriteLine("Gender: {0}", item.StudentGender);
                         Console.WriteLine("Address: {0}", item.StudentEmailAddress);
@@ -231,11 +233,18 @@ namespace Student_Enrollment_System
                         ID = _deleteStudentSelectedID
                     };
 
-                    DeleteStudentInfoCommand _deleteStudentInfoCommand = new DeleteStudentInfoCommand(_deleteStudInfo);
-                    var _deleteStudentInfo = await Mediator.Send(_deleteStudentInfoCommand);
-                    if (_deleteStudentInfo == true)
+                    try
                     {
-                        Console.WriteLine("Student ID {0} is Deleted!", _deleteStudentID);
+                        var _deleteStudentInfo = await Mediator.Send(new DeleteStudentInfoCommand(_deleteStudInfo));
+                        if (_deleteStudentInfo == true)
+                        {
+                            Console.WriteLine("Student ID {0} is Deleted!", _deleteStudentID);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine(ex.Message);
                     }
 
                     goto start;
@@ -251,8 +260,7 @@ namespace Student_Enrollment_System
                     var _searchStudentID = Console.ReadLine();
                     var _searchedStudentID = int.Parse(_searchStudentID);
 
-                    SearchStudentByIDCommand _searchStudentByIDCommand = new SearchStudentByIDCommand(_searchedStudentID);
-                    var _searchedStudentByIDDetails = await Mediator.Send(_searchStudentByIDCommand);
+                    var _searchedStudentByIDDetails = await Mediator.Send(new SearchStudentByIDQuery(_searchedStudentID));
 
 
                     if (_searchedStudentByIDDetails != null)
@@ -273,7 +281,6 @@ namespace Student_Enrollment_System
                         Console.WriteLine("Student ID does not exist!");
                     }
 
-
                     goto start;
 
                 #endregion;
@@ -287,8 +294,7 @@ namespace Student_Enrollment_System
                     Console.Write("Enter Keyword to find: ");
                     var _searchKeywordToFind = Console.ReadLine();
 
-                    SearchByKeywordCommand _searchByKeywordCommand = new SearchByKeywordCommand(_searchKeywordToFind);
-                    var _searchedKeywordToFind = await Mediator.Send(_searchByKeywordCommand);
+                    var _searchedKeywordToFind = await Mediator.Send(new SearchByKeywordQuery(_searchKeywordToFind));
 
                     if (_searchedKeywordToFind != null)
                     {
@@ -314,13 +320,26 @@ namespace Student_Enrollment_System
                 #region Add Student Subjects
                 case "7":
                 here:
+
+                    var _readStudentInfo3 = await Mediator.Send(new ReadStudentInfoQuery());
+
+                    foreach (var item in _readStudentInfo3)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Student ID: {0}  |  Last Name: {1}  |  First Name: {2}  |  Middle Name: {3}", item.ID, item.StudentLastName, item.StudentFirstName, item.StudentMiddleName);
+                        Console.WriteLine("Age: {0}", item.StudentAge);
+                        Console.WriteLine("Gender: {0}", item.StudentGender);
+                        Console.WriteLine("Address: {0}", item.StudentEmailAddress);
+                        Console.WriteLine("Email Address: {0}", item.StudentAddress);
+                        Console.WriteLine("Contact Number: {0}", item.StudentContactNumber);
+                    }
+
                     Console.WriteLine();
                     Console.Write("Enter ID to add subjects: ");
                     var _subjectSearchStudentID = Console.ReadLine();
                     var _subjectSearchedStudentID = int.Parse(_subjectSearchStudentID);
 
-                    SearchStudentByIDCommand _subjectSearchStudentByIDCommand = new SearchStudentByIDCommand(_subjectSearchedStudentID);
-                    var _subjectSearchedStudentByIDDetails = await Mediator.Send(_subjectSearchStudentByIDCommand);
+                    var _subjectSearchedStudentByIDDetails = await Mediator.Send(new SearchStudentByIDQuery(_subjectSearchedStudentID));
 
 
                     if (_subjectSearchedStudentByIDDetails != null)
@@ -357,8 +376,7 @@ namespace Student_Enrollment_System
                     var _addSubject = Console.ReadLine();
                     var _addedSubject = int.Parse(_addSubject);
 
-                    AddSubjectsCommand _addSubjectsCommand = new AddSubjectsCommand(_addedSubject);
-                    var _addedSubjectsCommand = await Mediator.Send(_addSubjectsCommand);
+                    var _addedSubjectsCommand = await Mediator.Send(new AddSubjectsCommand(_addedSubject));
 
 
                     Console.WriteLine();
@@ -374,8 +392,7 @@ namespace Student_Enrollment_System
                     var _addProfessor = Console.ReadLine();
                     var _addedProfessor = int.Parse(_addProfessor);
 
-                    AddProfessorCommand _addProfessorCommand = new AddProfessorCommand(_addedProfessor);
-                    var _addedProfessorCommand = await Mediator.Send(_addProfessorCommand);
+                    var _addedProfessorCommand = await Mediator.Send(new AddProfessorCommand(_addedProfessor));
 
 
                     Console.WriteLine();
@@ -390,8 +407,7 @@ namespace Student_Enrollment_System
                     var _addSched = Console.ReadLine();
                     var _addedSched = int.Parse(_addSched);
 
-                    AddScheduleOfSubjectCommand _addScheduleOfSubjectsCommand = new AddScheduleOfSubjectCommand(_addedSched);
-                    var _addedScheduleOfSubjectsCommand = await Mediator.Send(_addScheduleOfSubjectsCommand);
+                    var _addedScheduleOfSubjectsCommand = await Mediator.Send(new AddScheduleOfSubjectCommand(_addedSched));
 
 
                     if (_addedSubject != _addedProfessor)
@@ -402,8 +418,7 @@ namespace Student_Enrollment_System
                         goto choosedetails;
                     }
 
-                    SubjectDetailsCheckerCommand _subjectDetailsChecker = new SubjectDetailsCheckerCommand(_addedSubject, _addedProfessor, _addedSched);
-                    var _subjectDetailsCheckerCommand = await Mediator.Send(_subjectDetailsChecker);
+                    var _subjectDetailsCheckerCommand = await Mediator.Send(new SubjectDetailsCheckerCommand(_addedSubject, _addedProfessor, _addedSched));
 
 
                     if (_subjectDetailsCheckerCommand != null)
@@ -416,7 +431,7 @@ namespace Student_Enrollment_System
 
                     else
                     {
-                        AddSubjectDetailsCommand _addSubjectDetailsCommand = new AddSubjectDetailsCommand(_subjectSearchedStudentByIDDetails.ID, _addedSubjectsCommand, _addedProfessorCommand, _addedScheduleOfSubjectsCommand);
+                        AddSubjectDetailsCommand _addSubjectDetailsCommand = new AddSubjectDetailsCommand(_subjectSearchedStudentByIDDetails.ID, _addedSubjectsCommand.ID, _addedProfessorCommand.ID, _addedScheduleOfSubjectsCommand.ID);
                         var _addedSubjectDetailsCommand = await Mediator.Send(_addSubjectDetailsCommand);
 
                         if (_addedSubjectDetailsCommand == true)
@@ -434,13 +449,25 @@ namespace Student_Enrollment_System
                 #region Search Students Subjects
                 case "8":
 
+                    var _readStudentInfo4 = await Mediator.Send(new ReadStudentInfoQuery());
+
+                    foreach (var item in _readStudentInfo4)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Student ID: {0}  |  Last Name: {1}  |  First Name: {2}  |  Middle Name: {3}", item.ID, item.StudentLastName, item.StudentFirstName, item.StudentMiddleName);
+                        Console.WriteLine("Age: {0}", item.StudentAge);
+                        Console.WriteLine("Gender: {0}", item.StudentGender);
+                        Console.WriteLine("Address: {0}", item.StudentEmailAddress);
+                        Console.WriteLine("Email Address: {0}", item.StudentAddress);
+                        Console.WriteLine("Contact Number: {0}", item.StudentContactNumber);
+                    }
+
                     Console.WriteLine();
                     Console.Write("Enter Student ID: ");
                     var _searchStudentSubjects = Console.ReadLine();
                     var _searchedStudentSubjects = int.Parse(_searchStudentSubjects);
 
-                    SearchStudentSubjectsCommand _searchStudentSubjectsCommand = new SearchStudentSubjectsCommand(_searchedStudentSubjects);
-                    var _searchedStudentSubjectsCommand = await Mediator.Send(_searchStudentSubjectsCommand);
+                    var _searchedStudentSubjectsCommand = await Mediator.Send(new SearchStudentSubjectsQuery(_searchedStudentSubjects));
 
                     Console.WriteLine();
                     Console.WriteLine("Subject List: ");
@@ -485,19 +512,34 @@ namespace Student_Enrollment_System
                 #region Delete Students Subjects
                 case "9":
 
-                    Console.Write("Enter Student ID to delete: ");
+                    #region READ STUDENT LISTS
+                    var _readStudentInfo5 = await Mediator.Send(new ReadStudentInfoQuery());
+
+                    foreach (var item in _readStudentInfo5)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Student ID: {0}  |  Last Name: {1}  |  First Name: {2}  |  Middle Name: {3}", item.ID, item.StudentLastName, item.StudentFirstName, item.StudentMiddleName);
+                        Console.WriteLine("Age: {0}", item.StudentAge);
+                        Console.WriteLine("Gender: {0}", item.StudentGender);
+                        Console.WriteLine("Address: {0}", item.StudentEmailAddress);
+                        Console.WriteLine("Email Address: {0}", item.StudentAddress);
+                        Console.WriteLine("Contact Number: {0}", item.StudentContactNumber);
+                    }
+                    #endregion
+
+                    #region READ STUDENT SUBJECTS
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.Write("Enter Student ID to delete subjects: ");
                     var _deleteStudentSubject = Console.ReadLine();
                     int _deleteStudentSubjectID = int.Parse(_deleteStudentSubject);
 
 
-                    SearchStudentSubjectsCommand _searchDeleteStudentSubjectsCommand = new SearchStudentSubjectsCommand(_deleteStudentSubjectID);
-                    var _searchedDeleteStudentSubjectsCommand = await Mediator.Send(_searchDeleteStudentSubjectsCommand);
+                    var _searchedDeleteStudentSubjectsCommand = await Mediator.Send(new SearchStudentSubjectsQuery(_deleteStudentSubjectID));
 
-                    if (_searchedDeleteStudentSubjectsCommand != null)
+                    if (_searchedDeleteStudentSubjectsCommand.Any())
                     {
                         Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine("Student ID successfully searched!");
                         Console.WriteLine();
 
                         foreach (var item in _searchedDeleteStudentSubjectsCommand)
@@ -510,9 +552,11 @@ namespace Student_Enrollment_System
                     {
                         Console.WriteLine("Student ID does not have any registered subjects!");
                     }
+                    #endregion
 
+                    #region DELETE STUDENT SUBJECT
                     Console.WriteLine();
-                    Console.Write("Enter Subject ID Details to delete: ");
+                    Console.Write("Enter Subject Details ID to delete: ");
                     var _selectSubjectIDToDelete = Console.ReadLine();
                     var _selectedSubjectIDToDelete = int.Parse(_selectSubjectIDToDelete);
 
@@ -530,7 +574,8 @@ namespace Student_Enrollment_System
                     {
                         Console.WriteLine();
                         Console.WriteLine("Student ID: {0}   |  Subject Detail ID: {1} is Deleted!", _deleteStudentSubjectID, _selectedSubjectIDToDelete);
-                    }
+                    } 
+                    #endregion
 
                     goto start;
                 #endregion

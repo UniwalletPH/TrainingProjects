@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Schedule.Commands
 {
     public class AddScheduleOfSubjectCommand : IRequest<EnrollmentDetails>
     {
@@ -18,11 +18,12 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             this._schedID = _schedID;
         }
 
-        public class AddScheduleOfSubjectCommandHandler : BaseRequestHandler, IRequestHandler<AddScheduleOfSubjectCommand, EnrollmentDetails>
+        public class AddScheduleOfSubjectCommandHandler : IRequestHandler<AddScheduleOfSubjectCommand, EnrollmentDetails>
         {
-            public AddScheduleOfSubjectCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public AddScheduleOfSubjectCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
             public async Task<EnrollmentDetails> Handle(AddScheduleOfSubjectCommand request, CancellationToken cancellationToken)
             {

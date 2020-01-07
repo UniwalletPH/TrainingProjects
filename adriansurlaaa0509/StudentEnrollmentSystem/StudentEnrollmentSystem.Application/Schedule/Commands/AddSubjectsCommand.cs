@@ -8,7 +8,7 @@ using System.Threading;
 using StudentEnrollmentSystem.Application.Common.Base;
 using StudentEnrollmentSystem.Application.Interfaces;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Schedule.Commands
 {
     public class AddSubjectsCommand : IRequest<StudentSubjects>
     {
@@ -18,12 +18,12 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             this._subjectID = _subjectID;
         }
 
-        public class AddSubjectsCommandHandler : BaseRequestHandler, IRequestHandler<AddSubjectsCommand, StudentSubjects>
+        public class AddSubjectsCommandHandler : IRequestHandler<AddSubjectsCommand, StudentSubjects>
         {
-            //private readonly IMediator mediator;
-            public AddSubjectsCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public AddSubjectsCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-                //this.mediator = mediator;
+                this.dbContext = dbContext;
             }
 
             public async Task<StudentSubjects> Handle(AddSubjectsCommand request, CancellationToken cancellationToken)

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Schedule.Commands
 {
-    public class AddSubjectDetailsCommand : IRequest<int>
+    public class AddSubjectDetailsCommand : IRequest<bool>
     {
         private readonly int studentBasicInfo;
         private readonly int subjectID;
@@ -26,11 +26,12 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             this.enrollmentDetailsID = enrollmentDetailsID;
         }
 
-        public class AddSubjectDetailsCommandHandler : BaseRequestHandler, IRequestHandler<AddSubjectDetailsCommand, bool>
+        public class AddSubjectDetailsCommandHandler : IRequestHandler<AddSubjectDetailsCommand, bool>
         {
-            public AddSubjectDetailsCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public AddSubjectDetailsCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
             public async Task<bool> Handle(AddSubjectDetailsCommand request, CancellationToken cancellationToken)
@@ -39,8 +40,8 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
                 {
                     StudentBasicInfoID = request.studentBasicInfo,
                     StudentSubjectsID = request.subjectID,
-                    StudentProfessorID = request.studentProfessor.ID,
-                    EnrollmentDetailsID = request.enrollmentDetails.ID
+                    StudentProfessorID = request.professorID,
+                    EnrollmentDetailsID = request.enrollmentDetailsID
                 };
 
                 dbContext.StudentSubjectLists.Add(_studentSubjectList);

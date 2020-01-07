@@ -18,11 +18,12 @@ namespace StudentEnrollmentSystem.Application.SEScrudCommands
             this.myStudentBasicInfo = myStudentBasicInfo;
         }
 
-        public class UpdateStudentInfoCommandHandler : BaseRequestHandler, IRequestHandler<UpdateStudentInfoCommand, bool>
+        public class UpdateStudentInfoCommandHandler : IRequestHandler<UpdateStudentInfoCommand, bool>
         {
-            public UpdateStudentInfoCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public UpdateStudentInfoCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
             public async Task<bool> Handle(UpdateStudentInfoCommand request, CancellationToken cancellationToken)

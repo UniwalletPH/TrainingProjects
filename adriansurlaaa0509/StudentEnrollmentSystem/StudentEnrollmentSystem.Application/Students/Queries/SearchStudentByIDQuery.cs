@@ -11,26 +11,26 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Queries
 {
-    public class SearchStudentByIDCommand : IRequest<StudentBasicInfo>
+    public class SearchStudentByIDQuery : IRequest<StudentBasicInfo>
     {
         private readonly int searchedID;
 
-        public SearchStudentByIDCommand(int searchedID)
+        public SearchStudentByIDQuery(int searchedID)
         {
             this.searchedID = searchedID;
         }
 
-        public class SearchStudentByIDCommandHandler : BaseRequestHandler, IRequestHandler<SearchStudentByIDCommand, StudentBasicInfo>
+        public class SearchStudentByIDCommandHandler : IRequestHandler<SearchStudentByIDQuery, StudentBasicInfo>
         {
-
-            public SearchStudentByIDCommandHandler(IStudentEnrollmentSystemDbContext dbContext) : base(dbContext)
+            private readonly IStudentEnrollmentSystemDbContext dbContext;
+            public SearchStudentByIDCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
-            public async Task<StudentBasicInfo> Handle(SearchStudentByIDCommand request, CancellationToken cancellationToken)
+            public async Task<StudentBasicInfo> Handle(SearchStudentByIDQuery request, CancellationToken cancellationToken)
             {
                 StudentBasicInfo _searchedByIDStudentBasicInfoList = dbContext.StudentBasicInfos.Find(request.searchedID);
 
