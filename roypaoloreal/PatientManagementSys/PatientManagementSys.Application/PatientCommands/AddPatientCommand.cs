@@ -10,10 +10,10 @@ namespace PatientManagementSys.Application
 {
     public class AddPatientCommand : IRequest<PatientRecords>
     {
-        private readonly PatientRecords patient;
-        public AddPatientCommand(PatientRecords patient)
+        private readonly PatientRecords patientID;
+        public AddPatientCommand(PatientRecords patientID)
         {
-            this.patient = patient;
+            this.patientID = patientID;
         }
 
         public class AddPatientCommandHandler : IRequestHandler<AddPatientCommand, PatientRecords>
@@ -29,10 +29,10 @@ namespace PatientManagementSys.Application
             {
                 PatientRecords _registerPatient = new PatientRecords
                 {
-                    LastName = request.patient.LastName,
-                    FirstName = request.patient.FirstName,
-                    MiddleName = request.patient.MiddleName,
-                    diseases = request.patient.diseases
+                    LastName = request.patientID.LastName,
+                    FirstName = request.patientID.FirstName,
+                    MiddleName = request.patientID.MiddleName,
+                    diseases = request.patientID.diseases
                 };
 
                 dbContext.PatientRecords.Add(_registerPatient);

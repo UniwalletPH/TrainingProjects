@@ -12,10 +12,10 @@ namespace PatientManagementSys.Application
 {
     public class UpdatePatientRecordCommand : IRequest<PatientRecords>
     {
-        private readonly PatientRecords patient;
-        public UpdatePatientRecordCommand(PatientRecords patient)
+        private readonly PatientRecords patientID;
+        public UpdatePatientRecordCommand(PatientRecords patientID)
         {
-            this.patient = patient;
+            this.patientID = patientID;
         }
 
         public class UpdatePatientRecordCommandHandler : IRequestHandler<UpdatePatientRecordCommand, PatientRecords>
@@ -29,16 +29,16 @@ namespace PatientManagementSys.Application
             public async Task<PatientRecords> Handle(UpdatePatientRecordCommand request, CancellationToken cancellationToken)
             {
 
-                var c = dbContext.PatientRecords.Find(request.patient.ID);
+                var c = dbContext.PatientRecords.Find(request.patientID.ID);
                 if (c == null)
                 {
                     throw new Exception("Patient not found!");
                 }
                 else
                 {
-                    c.LastName = request.patient.LastName;
-                    c.FirstName = request.patient.FirstName;
-                    c.MiddleName = request.patient.MiddleName;
+                    c.LastName = request.patientID.LastName;
+                    c.FirstName = request.patientID.FirstName;
+                    c.MiddleName = request.patientID.MiddleName;
                 }
 
                

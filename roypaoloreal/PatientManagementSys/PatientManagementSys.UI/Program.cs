@@ -117,6 +117,7 @@ namespace PatientManagementSys.UI
                         }
                        
 
+
                     }
                     catch(Exception e)
                     {
@@ -196,7 +197,7 @@ namespace PatientManagementSys.UI
                     }
                     break;
                 case "6":
-                  searchByKeyword:  
+                searchByKeyword:
                     try
                     {
                         Console.Write("Please enter any information of the patient:");
@@ -215,7 +216,7 @@ namespace PatientManagementSys.UI
                             }
                         }
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
                         goto searchByKeyword;
@@ -268,6 +269,14 @@ namespace PatientManagementSys.UI
                         Console.WriteLine("Thank you for using the system!");
                     }
                     break;
+                case "8":
+                    Console.WriteLine("Thank you for using the system!");
+                    break;
+                default:
+                    Console.WriteLine("Invalid selection! Please input the correct number for your selection.");
+                    Console.ReadLine();
+                    goto start;
+
 
             }
         }

@@ -12,10 +12,10 @@ namespace PatientManagementSys.Application.PatientCommands
 {
     public class SearchPatientByIdQuery : IRequest<PatientRecords>
     {
-        private readonly long patient;
+        private readonly long patientID;
         public SearchPatientByIdQuery(long patient)
         {
-            this.patient = patient;
+            patientID = patient;
         }
 
         public class SearchPatientByIdQueryHandler : IRequestHandler<SearchPatientByIdQuery, PatientRecords>
@@ -28,7 +28,7 @@ namespace PatientManagementSys.Application.PatientCommands
 
             public async Task<PatientRecords> Handle(SearchPatientByIdQuery request, CancellationToken cancellationToken)
             {
-                PatientRecords c = dbContext.PatientRecords.Find(request.patient);
+                PatientRecords c = dbContext.PatientRecords.Find(request.patientID);
                 if (c == null)
                 {
                     throw new Exception("Patient not found!");
