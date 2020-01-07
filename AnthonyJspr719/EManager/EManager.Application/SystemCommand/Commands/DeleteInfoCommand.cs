@@ -12,11 +12,11 @@ namespace EManager.Application.SystemCommand.Commands
 {
     public class DeleteInfoCommand : IRequest<bool>
     {
-        private readonly int ID;
+        private readonly int id;
 
         public DeleteInfoCommand(int id)
         {
-            ID = id;
+            this.id = id;
         }
 
         public class DeleteInfoCommandHandler : IRequestHandler<DeleteInfoCommand, bool>
@@ -30,11 +30,10 @@ namespace EManager.Application.SystemCommand.Commands
 
             public async Task<bool> Handle(DeleteInfoCommand request, CancellationToken cancellationToken)
             {
-                var employeeToDelete = dbContext.EmployeeInformation.Find(request.ID);
+                var _employeeToDelete = dbContext.EmployeeInformation.Find(request.id);
 
-                dbContext.EmployeeInformation.Remove(employeeToDelete);
+                dbContext.EmployeeInformation.Remove(_employeeToDelete);
                 await dbContext.SaveChangesAsync();
-
 
                 return true;
             }

@@ -7,9 +7,9 @@ using System.Text;
 
 namespace EManager.Domain.Entities
 {
-    public class EmployeeTimeRecords : BaseEntity
+    public class EmployeeTimeRecords 
     {
-       
+        public int ID { get; set; }
         public DateTime Time { get; set; }
         public RecordType RecordType { get; set; }
 

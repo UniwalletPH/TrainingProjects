@@ -17,19 +17,20 @@ namespace EManager.Application.SystemCommand.Commands
         public SaveInfoCommand(EmployeeInformation employeeInformation) {
 
             this.employeeInformation = employeeInformation;
-
         }
 
-        public class SaveInfoCommandHandler : BaseRequestHandler, IRequestHandler<SaveInfoCommand, int>
+        public class SaveInfoCommandHandler :  IRequestHandler<SaveInfoCommand, int>
         {
-            public SaveInfoCommandHandler(IEManagerDbContext dbContext) : base(dbContext)
-            { 
-            
+            private readonly IEManagerDbContext dbContext;
+
+            public SaveInfoCommandHandler(IEManagerDbContext dbContext) 
+            {
+                this.dbContext = dbContext;
             }
 
             public async Task<int> Handle(SaveInfoCommand request, CancellationToken cancellationToken)
             {
-                EmployeeInformation employeeInformation = new EmployeeInformation 
+                EmployeeInformation _employeeInformation = new EmployeeInformation 
                 {
                     FirstName = request.employeeInformation.FirstName,
                     MiddleName = request.employeeInformation.MiddleName,
@@ -40,10 +41,10 @@ namespace EManager.Application.SystemCommand.Commands
                 };
 
 
-                dbContext.EmployeeInformation.Add(employeeInformation);
+                dbContext.EmployeeInformation.Add(_employeeInformation);
                 await dbContext.SaveChangesAsync();
 
-                return employeeInformation.ID;
+                return _employeeInformation.ID;
             }
         }
     }

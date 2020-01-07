@@ -11,12 +11,11 @@ namespace EManager.Application.SystemCommand.Commands
 {
     public class CheckEmployeeAgeCommand : IRequest<bool>
     {
-        private readonly int EmployeeAge;
+        private readonly int employeeAge;
 
-        public CheckEmployeeAgeCommand(int EmployeeAge)
+        public CheckEmployeeAgeCommand(int employeeAge)
         {
-
-            this.EmployeeAge = EmployeeAge;
+            this.employeeAge = employeeAge;
         }
 
         public class CheckEmployeeAgeCommandHandler : IRequestHandler<CheckEmployeeAgeCommand, bool>
@@ -30,15 +29,17 @@ namespace EManager.Application.SystemCommand.Commands
 
             public async Task<bool> Handle(CheckEmployeeAgeCommand request, CancellationToken cancellationToken)
             {
-                if (request.EmployeeAge >= 18)
+                if (request.employeeAge >= 18)
                 {
                     return true;
-                }  else
+                } 
+                else
                 {
                     return false;
                 }
-           }
+            }
         }
+
 
     }
 }

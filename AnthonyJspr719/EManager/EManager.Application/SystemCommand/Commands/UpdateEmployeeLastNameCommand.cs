@@ -12,31 +12,32 @@ namespace EManager.Application.SystemCommand.Commands
 {
     public class UpdateEmployeeLastNameCommand : IRequest<bool>
     {
-
-        private readonly EmployeeInformation employeeInformation;
+        private readonly int id;
         private readonly string newLastName;
-        public UpdateEmployeeLastNameCommand(EmployeeInformation selectedEmployee, string newLastName)
+        public UpdateEmployeeLastNameCommand(int id, string newLastName)
         {
-            this.employeeInformation = selectedEmployee;
+            this.id = id;
             this.newLastName = newLastName;
         }
 
-        public class UpdateEmployeeLastNameCommandHandler : BaseRequestHandler, IRequestHandler<UpdateEmployeeLastNameCommand, bool>
+        public class UpdateEmployeeLastNameCommandHandler :  IRequestHandler<UpdateEmployeeLastNameCommand, bool>
         {
-            public UpdateEmployeeLastNameCommandHandler(IEManagerDbContext dbContext) : base(dbContext)
+            private readonly IEManagerDbContext dbContext;
+            public UpdateEmployeeLastNameCommandHandler(IEManagerDbContext dbContext) 
             {
+                this.dbContext = dbContext;
             }
 
             public async Task<bool> Handle(UpdateEmployeeLastNameCommand request, CancellationToken cancellationToken)
             {
-                var entryToUpdate = dbContext.EmployeeInformation.Find(request.employeeInformation.ID);
+                var _entryToUpdate = dbContext.EmployeeInformation.Find(request.id);
 
-                entryToUpdate.LastName = request.newLastName;
+                _entryToUpdate.LastName = request.newLastName;
                 await dbContext.SaveChangesAsync();
-
 
                 return true;
             }
         }
     }
 }
+

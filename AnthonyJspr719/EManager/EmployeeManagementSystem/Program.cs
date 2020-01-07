@@ -34,8 +34,14 @@ namespace Employee_Management_System
             Console.WriteLine("2 - VIEW EMPLOYEES");
             Console.WriteLine("3 - DELETE EMPLOYEE");
             Console.WriteLine("4 - UPDATE EMPLOYEE LASTNAME");
+            Console.WriteLine("5 - UPDATE EMPLOYEE MIDDLENAME");
+            Console.WriteLine("6 - UPDATE EMPLOYEE ADDRESS");
+            Console.WriteLine("7 - SEARCH EMPLOYEE");
+
+
             Console.WriteLine("5 - SEARCH EMPLOYEE");
 
+           
         start:
             Console.Write("Please enter a command: ");
             string _cmdNumber = Console.ReadLine();
@@ -106,16 +112,16 @@ namespace Employee_Management_System
 
                 case "2":
 
-                    Console.WriteLine("EMPLOYEES INFORMATION");
-                    FetchAllInfoCommand fetchAllInfoCommand = new FetchAllInfoCommand();
-                    var _return = await Mediator.Send(fetchAllInfoCommand);
+                    Console.WriteLine("ALL EMPLOYEES ");
+                   
+                    var _return = await Mediator.Send(new FetchAllInfoQuery());
 
 
-                    Console.WriteLine("EMPLOYEE ID  - NAME      -      ADDRESS");
+                    Console.WriteLine("ID#  -        NAME      -          ADDRESS");
                     foreach (var item in _return)
                     {
                         
-                        Console.WriteLine("{0}             {1} {2} {3}  {4}", item.ID,item.FirstName, item.MiddleName, item.LastName, item.Address);
+                        Console.WriteLine("{0}    {1} {2} {3}           {4}", item.ID,item.FirstName, item.MiddleName, item.LastName, item.Address);
                     }
 
 
@@ -127,8 +133,8 @@ namespace Employee_Management_System
 
                     Console.WriteLine("EMPLOYEES INFORMATION");
 
-                    FetchAllInfoCommand getAllInfo = new FetchAllInfoCommand();
-                    var _retValue = await Mediator.Send(getAllInfo);
+                   
+                    var _retValue = await Mediator.Send(new FetchAllInfoQuery());
                    
 
                     foreach (var item in _retValue)
@@ -154,25 +160,26 @@ namespace Employee_Management_System
                     goto start;
 
                 case "4":
-                    FetchAllInfoCommand getAllData = new FetchAllInfoCommand();
-                    var _returnValue = await Mediator.Send(getAllData);
-                    int count = 0;
 
+                    Console.WriteLine("ALL EMPLOYEES");
+                    var _returnValue = await Mediator.Send(new FetchAllInfoQuery());
+                  
                     foreach (var item in _returnValue)
                     {
-                        Console.WriteLine("{0}   {1}  {2}   {3}", count, item.FirstName, item.MiddleName, item.LastName);
-                        count++;
+                        Console.WriteLine("{0}   {1}  {2}   {3}", item.ID, item.FirstName, item.MiddleName, item.LastName);
+                       
                     }
+
+
                     Console.WriteLine("ENTER EMPLOYEE ID TO UPDATE LASTNAME");
                     var _id = Console.ReadLine();
-                    int _indexChosen = int.Parse(_id);
-                    var selected = _returnValue[_indexChosen];
+                    int _employeeID = int.Parse(_id);
+                    
 
                     Console.WriteLine("ENTER NEW LASTNAME");
                     var newLastname = Console.ReadLine();
 
-                    UpdateEmployeeLastNameCommand updateEmployeeLastNameCommand = new UpdateEmployeeLastNameCommand(selected,newLastname);
-                    var _r = await Mediator.Send(updateEmployeeLastNameCommand);
+                    var _r = await Mediator.Send(new UpdateEmployeeLastNameCommand(_employeeID, newLastname));
 
                     if (_r == true)
                     {
@@ -184,13 +191,69 @@ namespace Employee_Management_System
 
                 case "5":
 
+                    Console.WriteLine("ALL EMPLOYEES");
+
+                    var _employeeSelection = await Mediator.Send(new FetchAllInfoQuery());
+
+                    foreach (var item in _employeeSelection)
+                    {
+                        Console.WriteLine("{0}   {1}  {2}   {3}", item.ID, item.FirstName, item.MiddleName, item.LastName);                      
+                    }
+
+                    Console.WriteLine("ENTER EMPLOYEE ID TO UPDATE LASTNAME");
+                    var _newID = Console.ReadLine();
+                    int _idNumber = int.Parse(_newID);
+
+                    Console.WriteLine("ENTER NEW LASTNAME");
+                    var newMiddleName = Console.ReadLine();
+
+                    var _newResult = await Mediator.Send(new UpdateEmployeeMiddleNameCommand(_idNumber,newMiddleName));
+
+                    if (_newResult == true)
+                    {
+
+                        Console.WriteLine("MIDDLENAME UPDATED");
+                    }
+
+                    goto start;
+
+                case "6":
+
+                    Console.WriteLine("ALL EMPLOYEES");
+
+                    var _allEmployee = await Mediator.Send(new FetchAllInfoQuery());
+
+                    foreach (var item in _allEmployee)
+                    {
+                        Console.WriteLine("{0}   {1}  {2}   {3}", item.ID, item.FirstName, item.MiddleName, item.LastName);
+                    }
+
+                    Console.WriteLine("ENTER EMPLOYEE ID TO UPDATE ADDRESS");
+                    var _newIDToUpdare = Console.ReadLine();
+                    int _idSelected = int.Parse(_newIDToUpdare);
+
+                    Console.WriteLine("ENTER NEW LASTNAME");
+                    var newAddress = Console.ReadLine();
+
+                    var _addressResult = await Mediator.Send(new UpdateEmployeeMiddleNameCommand(_idSelected, newAddress));
+
+                    if (_addressResult == true)
+                    {
+
+                        Console.WriteLine("ADDRESS UPDATED");
+                    }
+
+                    goto start;
+
+                case "7":
+
                     Console.WriteLine("SEARCH EMPLOYEE");
 
                     Console.WriteLine("ENTRY");
                     var searchEntry = Console.ReadLine();
 
-                    SearchEmployeeLastNameQuery searchEmployeeLastNameCommand = new SearchEmployeeLastNameQuery(searchEntry);
-                   var  searchedEntries = await Mediator.Send(searchEmployeeLastNameCommand);
+                    
+                   var  searchedEntries = await Mediator.Send(new SearchEmployeeQuery(searchEntry));
 
                     foreach (var item in searchedEntries)
                     {
@@ -200,7 +263,7 @@ namespace Employee_Management_System
 
                     goto start;
 
-                case "6":
+                case "8":
                 default:
                     Console.WriteLine("Invalid Command!");
                     goto start;

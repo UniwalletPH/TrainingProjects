@@ -45,67 +45,31 @@ namespace EmployeeTimeRecord
                 case "1":
 
                     Console.WriteLine("TIME IN");
-                    Console.WriteLine("ENTER YOUR ID NUMBER TO TIME IN");
+                    Console.WriteLine("ENTER YOUR ID NUMBER");
                     var empID = Console.ReadLine();
                     var employeeID = Convert.ToInt32(empID);
-                    var time = DateTime.Now;
 
-
-                    EmployeeTimeRecords timeRecord = new EmployeeTimeRecords
-                    {
-                        EmployeeInformationID = employeeID,
-                        Time = time,
-                        RecordType = RecordType.TimeIn
-                    };
-
-                    SaveTimeRecordCommand saveTimeRecordCommand = new SaveTimeRecordCommand(timeRecord);
+                    SaveTimeInCommand saveTimeRecordCommand = new SaveTimeInCommand(employeeID);
                     var savingRes = await Mediator.Send(saveTimeRecordCommand);
 
-                    if (savingRes == true)
-
-                    {
-                        Console.WriteLine("TIME IN RECORDED");
-                    }
-                    else
-                    {
-                        Console.WriteLine("TIME IN NOT RECORDED");
-                    }
+                    Console.WriteLine("Time In Success!! ID# {0} NAME: {1} {2} {3} TIME: {4}", savingRes.ID, savingRes.FirstName, savingRes.MiddleName,savingRes.LastName, DateTime.Now);
 
                     goto start;
-
-                    
-
 
 
                 case "2":
 
                     Console.WriteLine("TIME OUT");
-                    Console.WriteLine("ENTER YOUR ID NUMBER TO TIME OUT");
+                    Console.WriteLine("ENTER YOUR ID NUMBER");
                     var _empID = Console.ReadLine();
                     var _employeeID = Convert.ToInt32(_empID);
-                    var _time = DateTime.Now;
+                   
 
-
-                    EmployeeTimeRecords _timeRecord = new EmployeeTimeRecords
-                    {
-                        EmployeeInformationID = _employeeID,
-                        Time = _time,
-                        RecordType = RecordType.TimeOut
-                    };
-
-                    SaveTimeRecordCommand _saveTimeRecordCommand = new SaveTimeRecordCommand(_timeRecord);
+                    SaveTimeOutCommand _saveTimeRecordCommand = new SaveTimeOutCommand(_employeeID);
                     var _savingRes = await Mediator.Send(_saveTimeRecordCommand);
 
+                    Console.WriteLine("Time Out Success!! ID# {0} NAME: {1} {2} {3} TIME: {4}", _savingRes.ID, _savingRes.FirstName, _savingRes.MiddleName, _savingRes.LastName, DateTime.Now);
 
-                    if (_savingRes == true)
-
-                    {
-                        Console.WriteLine("TIME OUT RECORDED");
-                    }
-                    else
-                    {
-                        Console.WriteLine("TIME OUT NOT RECORDED");
-                    }
 
                     goto start;
 
