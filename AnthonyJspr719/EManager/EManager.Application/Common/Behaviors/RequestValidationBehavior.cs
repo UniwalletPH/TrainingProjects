@@ -1,11 +1,15 @@
-﻿using FluentValidation;
+﻿using EManager.Application.SystemCommand.Commands;
+using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static EManager.Application.SystemCommand.Commands.SaveInfoCommand;
 
 namespace EManager.Application.Common.Behaviors
 {
@@ -34,6 +38,29 @@ namespace EManager.Application.Common.Behaviors
             }
 
             return next();
+        }
+    }
+
+    public static class RequestValidationInjection
+    {
+        public static IServiceCollection AddFluentValidation(this IServiceCollection services, Assembly assembly)
+        {
+            assembly.GetTypes()
+                .Where(t => t.BaseType != null 
+                        && t.BaseType.IsGenericType 
+                        && t.BaseType.GetGenericTypeDefinition() == typeof(AbstractValidator<>))
+                .Select(t => new
+                {
+                    Implementation = t,
+                    Service = typeof(IValidator<>).MakeGenericType( t.BaseType.GenericTypeArguments[0])
+                })
+                .ToList()
+                .ForEach(a =>
+                {
+                    services.AddTransient(a.Service, a.Implementation);
+                });
+
+            return services;
         }
     }
 }
