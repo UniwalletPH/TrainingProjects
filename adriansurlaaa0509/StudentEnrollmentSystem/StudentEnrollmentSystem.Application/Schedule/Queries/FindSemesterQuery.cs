@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using StudentEnrollmentSystem.Application.Common.Base;
+
 using StudentEnrollmentSystem.Application.Interfaces;
 using StudentEnrollmentSystem.Domain.Entities;
 using System;
@@ -10,22 +10,22 @@ using System.Threading.Tasks;
 
 namespace StudentEnrollmentSystem.Application.Schedule.Commands
 {
-    public class AddScheduleOfSubjectCommand : IRequest<EnrollmentDetails>
+    public class FindSemesterQuery : IRequest<EnrollmentDetails>
     {
         private readonly int _schedID;
-        public AddScheduleOfSubjectCommand (int _schedID)
+        public FindSemesterQuery (int _schedID)
         {
             this._schedID = _schedID;
         }
 
-        public class AddScheduleOfSubjectCommandHandler : IRequestHandler<AddScheduleOfSubjectCommand, EnrollmentDetails>
+        public class FindSemesterQueryHandler : IRequestHandler<FindSemesterQuery, EnrollmentDetails>
         {
             private readonly IStudentEnrollmentSystemDbContext dbContext;
-            public AddScheduleOfSubjectCommandHandler(IStudentEnrollmentSystemDbContext dbContext)
+            public FindSemesterQueryHandler(IStudentEnrollmentSystemDbContext dbContext)
             {
                 this.dbContext = dbContext;
             }
-            public async Task<EnrollmentDetails> Handle(AddScheduleOfSubjectCommand request, CancellationToken cancellationToken)
+            public async Task<EnrollmentDetails> Handle(FindSemesterQuery request, CancellationToken cancellationToken)
             {
                 EnrollmentDetails _studentSchedID = dbContext.EnrollmentDetails.Find(request._schedID);
 

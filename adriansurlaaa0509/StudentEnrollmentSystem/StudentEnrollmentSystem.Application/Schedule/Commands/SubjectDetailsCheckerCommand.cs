@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using StudentEnrollmentSystem.Application.Common.Base;
+
 using StudentEnrollmentSystem.Application.Interfaces;
 using StudentEnrollmentSystem.Domain.Entities;
 using System;

@@ -19,7 +19,7 @@ namespace EManager.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             
-            services.AddTransient<IValidator<SaveInfoCommand>, SaveInfoCommandValidator>();
+            services.AddTransient(typeof(IValidator<SaveInfoCommand>), typeof(SaveInfoCommandValidator));
 
             return services;
         }

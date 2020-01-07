@@ -407,7 +407,7 @@ namespace Student_Enrollment_System
                     var _addSched = Console.ReadLine();
                     var _addedSched = int.Parse(_addSched);
 
-                    var _addedScheduleOfSubjectsCommand = await Mediator.Send(new AddScheduleOfSubjectCommand(_addedSched));
+                    var _selectedSemester = await Mediator.Send(new FindSemesterQuery(_addedSched));
 
 
                     if (_addedSubject != _addedProfessor)
@@ -431,7 +431,7 @@ namespace Student_Enrollment_System
 
                     else
                     {
-                        AddSubjectDetailsCommand _addSubjectDetailsCommand = new AddSubjectDetailsCommand(_subjectSearchedStudentByIDDetails.ID, _addedSubjectsCommand.ID, _addedProfessorCommand.ID, _addedScheduleOfSubjectsCommand.ID);
+                        AddSubjectDetailsCommand _addSubjectDetailsCommand = new AddSubjectDetailsCommand(_subjectSearchedStudentByIDDetails.ID, _addedSubjectsCommand.ID, _addedProfessorCommand.ID, _selectedSemester.ID);
                         var _addedSubjectDetailsCommand = await Mediator.Send(_addSubjectDetailsCommand);
 
                         if (_addedSubjectDetailsCommand == true)

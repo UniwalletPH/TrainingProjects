@@ -26,8 +26,4 @@
     <ProjectReference Include="..\StudentEnrollmentSystem.Domain\StudentEnrollmentSystem.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Schedule\Queries\" />
-  </ItemGroup>
-
 </Project>

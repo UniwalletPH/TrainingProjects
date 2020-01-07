@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using StudentEnrollmentSystem.Domain.Entities;
-using StudentEnrollmentSystem.Application.Common.Base;
+
 using System.Threading.Tasks;
 using System.Threading;
 using StudentEnrollmentSystem.Application.Interfaces;
