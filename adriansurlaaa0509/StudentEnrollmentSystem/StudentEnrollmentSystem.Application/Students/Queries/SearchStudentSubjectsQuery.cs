@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using StudentEnrollmentSystem.Domain.Entities;
 using System.Linq;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Queries
 {
     public class SearchStudentSubjectsQuery : IRequest<IEnumerable<StudentSubjectList>>
     {

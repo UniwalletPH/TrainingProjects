@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 using StudentEnrollmentSystem.Domain.Entities;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Commands
 {
     public class UpdateStudentInfoCommand : IRequest<bool>
     {
