@@ -257,7 +257,16 @@ namespace PatientManagementSys.UI
                         Console.WriteLine(e.Message);
                         goto addDiagnosis;
                     }
-                    
+                    Console.WriteLine("\nDo you want to continue? [Y/N]: ");
+                    string _diagnosisCheck = Console.ReadLine();
+                    if (_diagnosisCheck.Contains("Y") || _diagnosisCheck.Contains("y"))
+                    {
+                        goto start;
+                    }
+                    else if (_diagnosisCheck.Contains("N") || _diagnosisCheck.Contains("n"))
+                    {
+                        Console.WriteLine("Thank you for using the system!");
+                    }
                     break;
 
             }
