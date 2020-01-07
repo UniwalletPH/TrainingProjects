@@ -13,10 +13,10 @@ namespace PatientManagementSys.Application.PatientCommands
 {
     public class SearchPatientByKeywordQuery : IRequest<IEnumerable<PatientRecords>>
     {
-        private readonly string patient;
+        private readonly string patientID;
         public SearchPatientByKeywordQuery(string patient)
         {
-            this.patient = patient;
+            patientID = patient;
         }
 
         public class SearchPatientByKeywordQueryHandler : IRequestHandler<SearchPatientByKeywordQuery,IEnumerable<PatientRecords>>
@@ -33,10 +33,10 @@ namespace PatientManagementSys.Application.PatientCommands
 
 
                 var _q = from a in dbContext.PatientRecords
-                         where a.LastName.Contains(request.patient)
-                            || a.FirstName.Contains(request.patient)
-                            || a.MiddleName.Contains(request.patient)
-                            || a.diseases.Contains(request.patient)
+                         where a.LastName.Contains(request.patientID)
+                            || a.FirstName.Contains(request.patientID)
+                            || a.MiddleName.Contains(request.patientID)
+                            || a.diseases.Contains(request.patientID)
                          select a;
                 if (!_q.Any())
                 {
