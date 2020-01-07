@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using StudentEnrollmentSystem.Application.Common.Base;
+
 using StudentEnrollmentSystem.Domain.Entities;
 
-namespace StudentEnrollmentSystem.Application.SEScrudCommands
+namespace StudentEnrollmentSystem.Application.Students.Commands
 {
     public class UpdateStudentInfoCommand : IRequest<bool>
     {

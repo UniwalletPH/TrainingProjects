@@ -5,7 +5,7 @@ using System.Text;
 using StudentEnrollmentSystem.Domain.Entities;
 using System.Threading.Tasks;
 using System.Threading;
-using StudentEnrollmentSystem.Application.Common.Base;
+
 using StudentEnrollmentSystem.Application.Interfaces;
 
 namespace StudentEnrollmentSystem.Application.Schedule.Commands

@@ -1,5 +1,6 @@
-﻿using MediatR;
-using StudentEnrollmentSystem.Application.Common.Base;
+﻿using FluentValidation;
+using MediatR;
+
 using StudentEnrollmentSystem.Application.Interfaces;
 using StudentEnrollmentSystem.Domain.Entities;
 using System;
@@ -23,6 +24,24 @@ namespace StudentEnrollmentSystem.Application.Schedule.Commands
             this._schedule = _schedule;
         }
 
+        //public class SubjectDetailsCheckerCommandValidator : AbstractValidator<SubjectDetailsCheckerCommand>
+        //{
+        //    public SubjectDetailsCheckerCommandValidator(IMediator mediator)
+        //    {
+        //        //RuleFor(a => a.employeeInformation.Age).GreaterThan(2);
+        //        //RuleFor(a => a.employeeInformation.FirstName).NotNull();
+
+        //        //List<string> _fistNames = new List<string>();
+        //        //_fistNames.Add("Vincent");
+        //        //_fistNames.Add("Enteng");
+
+        //        //RuleFor(a => a.employeeInformation.FirstName)
+        //        //    .Must(a => !_fistNames.Contains(a)).WithMessage("That name is already taken!");
+
+        //        //RuleFor(a => a.);
+        //    }
+        //}
+
         public class SubjectDetailsChecherCommandHandler : IRequestHandler<SubjectDetailsCheckerCommand, IEnumerable<StudentSubjectList>>
         {
             private readonly IStudentEnrollmentSystemDbContext dbContext;
@@ -30,6 +49,8 @@ namespace StudentEnrollmentSystem.Application.Schedule.Commands
             {
                 this.dbContext = dbContext;
             }
+
+
 
             public async Task<IEnumerable<StudentSubjectList>> Handle(SubjectDetailsCheckerCommand request, CancellationToken cancellationToken)
             {

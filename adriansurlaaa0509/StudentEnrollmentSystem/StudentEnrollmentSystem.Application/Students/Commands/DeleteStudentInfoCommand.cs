@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using StudentEnrollmentSystem.Application.Common.Base;
+
 using StudentEnrollmentSystem.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +13,10 @@ namespace StudentEnrollmentSystem.Application.Students.Commands
 {
     public class DeleteStudentInfoCommand : IRequest<bool>
     {
-        private readonly StudentBasicInfo myStudentBasicInfo;
-        public DeleteStudentInfoCommand(StudentBasicInfo myStudentBasicInfo)
+        private readonly int deleteSearchedID;
+        public DeleteStudentInfoCommand(int deleteSearchedID)
         {
-            this.myStudentBasicInfo = myStudentBasicInfo;
+            this.deleteSearchedID = deleteSearchedID;
         }
 
         public class DeleteStudentInfoCommandHandler : IRequestHandler<DeleteStudentInfoCommand, bool>
@@ -29,7 +29,7 @@ namespace StudentEnrollmentSystem.Application.Students.Commands
 
             public async Task<bool> Handle(DeleteStudentInfoCommand request, CancellationToken cancellationToken)
             {
-                var _deleteStudentInfo = dbContext.StudentSubjectLists.Find(request.myStudentBasicInfo.ID);
+                var _deleteStudentInfo = dbContext.StudentSubjectLists.Find(request.deleteSearchedID);
 
                 if (_deleteStudentInfo != null)
                 {

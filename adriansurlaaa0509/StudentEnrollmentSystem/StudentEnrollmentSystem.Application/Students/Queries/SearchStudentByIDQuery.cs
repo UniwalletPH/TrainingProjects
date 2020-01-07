@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
-using StudentEnrollmentSystem.Application.Common.Base;
+
 using StudentEnrollmentSystem.Application.Interfaces;
 using StudentEnrollmentSystem.Domain.Entities;
 using System;

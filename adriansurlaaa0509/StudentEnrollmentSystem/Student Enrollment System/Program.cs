@@ -9,7 +9,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using StudentEnrollmentSystem.Application.SEScrudCommands;
 using StudentEnrollmentSystem.Domain.Entities;
 using StudentEnrollmentSystem.Application.Students.Commands;
 using StudentEnrollmentSystem.Application.Students.Queries;
@@ -228,14 +227,14 @@ namespace Student_Enrollment_System
                     var _deleteStudentID = Console.ReadLine();
                     int _deleteStudentSelectedID = int.Parse(_deleteStudentID);
 
-                    StudentBasicInfo _deleteStudInfo = new StudentBasicInfo
-                    {
-                        ID = _deleteStudentSelectedID
-                    };
+                    //StudentBasicInfo _deleteStudInfo = new StudentBasicInfo
+                    //{
+                    //    ID = _deleteStudentSelectedID
+                    //};
 
                     try
                     {
-                        var _deleteStudentInfo = await Mediator.Send(new DeleteStudentInfoCommand(_deleteStudInfo));
+                        var _deleteStudentInfo = await Mediator.Send(new DeleteStudentInfoCommand(_deleteStudentSelectedID));
                         if (_deleteStudentInfo == true)
                         {
                             Console.WriteLine("Student ID {0} is Deleted!", _deleteStudentID);
@@ -407,7 +406,7 @@ namespace Student_Enrollment_System
                     var _addSched = Console.ReadLine();
                     var _addedSched = int.Parse(_addSched);
 
-                    var _addedScheduleOfSubjectsCommand = await Mediator.Send(new AddScheduleOfSubjectCommand(_addedSched));
+                    var _selectedSemester = await Mediator.Send(new FindSemesterQuery(_addedSched));
 
 
                     if (_addedSubject != _addedProfessor)
@@ -431,8 +430,7 @@ namespace Student_Enrollment_System
 
                     else
                     {
-                        AddSubjectDetailsCommand _addSubjectDetailsCommand = new AddSubjectDetailsCommand(_subjectSearchedStudentByIDDetails.ID, _addedSubjectsCommand.ID, _addedProfessorCommand.ID, _addedScheduleOfSubjectsCommand.ID);
-                        var _addedSubjectDetailsCommand = await Mediator.Send(_addSubjectDetailsCommand);
+                        var _addedSubjectDetailsCommand = await Mediator.Send(new AddSubjectDetailsCommand(_subjectSearchedStudentByIDDetails.ID, _addedSubjectsCommand.ID, _addedProfessorCommand.ID, _selectedSemester.ID));
 
                         if (_addedSubjectDetailsCommand == true)
                         {
