@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Domain.Entities;
 using System;
@@ -12,25 +11,35 @@ namespace PatientManagementSys.Application.PatientCommands
 {
     public class AddPatientDiagnosisCommand : IRequest<PatientRecords>
     {
+        private readonly long PatientID;
+        private readonly string Diseases;
 
-        private readonly PatientRecords patient;
-        public AddPatientDiagnosisCommand(PatientRecords patient)
+        public AddPatientDiagnosisCommand(long patientID, string diseases)
         {
-            this.patient = patient;
+            PatientID = patientID;
+            Diseases = diseases;
         }
 
-        public class AddPatientDiagnosisCommandHandler : BaseRequestHandler, IRequestHandler<AddPatientDiagnosisCommand, PatientRecords>
+        public class AddPatientDiagnosisCommandHandler : IRequestHandler<AddPatientDiagnosisCommand, PatientRecords>
         {
-            public AddPatientDiagnosisCommandHandler(IPatientManagementSysDbContext dbContext) : base(dbContext)
+            private readonly IPatientManagementSysDbContext dbContext;
+            public AddPatientDiagnosisCommandHandler(IPatientManagementSysDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
             public async Task<PatientRecords> Handle(AddPatientDiagnosisCommand request, CancellationToken cancellationToken)
             {
-                var c = dbContext.PatientRecords.Find(request.patient.ID);
-                c.diseases = request.patient.diseases;
+                var c = dbContext.PatientRecords.Find(request.PatientID);
+
+                if (c == null)
+                {
+                    throw new Exception("Patient not found!");
+                }
+
+                c.diseases = request.Diseases;
 
                 await dbContext.SaveChangesAsync();
+
                 return c;
             }
         }

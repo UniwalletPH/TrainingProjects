@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PatientManagementSys.Domain.Entities;
-using PatientManagementSys.Enums;
 
 namespace PatientManagementSys.Application.Interfaces
 {

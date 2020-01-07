@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
@@ -19,26 +18,34 @@ namespace PatientManagementSys.Application
             this.patient = patient;
         }
 
-        public class UpdatePatientRecordCommandHandler : BaseRequestHandler, IRequestHandler<UpdatePatientRecordCommand, PatientRecords>
+        public class UpdatePatientRecordCommandHandler : IRequestHandler<UpdatePatientRecordCommand, PatientRecords>
         {
-            public UpdatePatientRecordCommandHandler(IPatientManagementSysDbContext dbContext) : base(dbContext)
+            private readonly IPatientManagementSysDbContext dbContext;
+            public UpdatePatientRecordCommandHandler(IPatientManagementSysDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
 
             public async Task<PatientRecords> Handle(UpdatePatientRecordCommand request, CancellationToken cancellationToken)
             {
 
                 var c = dbContext.PatientRecords.Find(request.patient.ID);
-                c.LastName = request.patient.LastName;
-                c.FirstName = request.patient.FirstName;
-                c.MiddleName = request.patient.MiddleName;
+                if (c == null)
+                {
+                    throw new Exception("Patient not found!");
+                }
+                else
+                {
+                    c.LastName = request.patient.LastName;
+                    c.FirstName = request.patient.FirstName;
+                    c.MiddleName = request.patient.MiddleName;
+                }
+
+               
 
                 await dbContext.SaveChangesAsync();
                 return c;
-                }
             }
         }
-
     }
-
+}

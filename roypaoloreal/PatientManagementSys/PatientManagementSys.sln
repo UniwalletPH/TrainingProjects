@@ -3,25 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientManagementSys", "PatientManagementSys\PatientManagementSys.csproj", "{957379C4-8F7D-4D0E-A826-F4975E20742E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{591248F7-3096-49E5-A264-16B6CC823F64}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{1F469423-40F6-4407-94C8-17E1DF514522}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9CCDF5D5-8A3E-49FC-A09C-6664C73D179B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientManagementSys.Application", "PatientManagementSys.Application\PatientManagementSys.Application.csproj", "{0404677F-23D7-46C7-8737-BA0067A3F5E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientManagementSys.Application", "PatientManagementSys.Application\PatientManagementSys.Application.csproj", "{0404677F-23D7-46C7-8737-BA0067A3F5E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientManagementSys.Domain", "PatientManagementSys.Domain\PatientManagementSys.Domain.csproj", "{9127ED10-3E77-4501-8FD0-6B5B3858A05F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientManagementSys.Domain", "PatientManagementSys.Domain\PatientManagementSys.Domain.csproj", "{9127ED10-3E77-4501-8FD0-6B5B3858A05F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientManagementSys.Infrastructure", "PatientManagementSys.Infrastructure\PatientManagementSys.Infrastructure.csproj", "{0314A536-9C08-4C80-A0A6-E767728C9048}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientManagementSys.Infrastructure", "PatientManagementSys.Infrastructure\PatientManagementSys.Infrastructure.csproj", "{0314A536-9C08-4C80-A0A6-E767728C9048}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F62A621E-7A6F-45E8-9132-C1B67FECBF35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{D31C64AF-F834-4A71-AEB0-8DC09385BCFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientManagementSys.UI", "PatientManagementSys.UI\PatientManagementSys.UI.csproj", "{763742D5-1D91-40EE-9A4D-8630AFCC0EEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientManagementSys.UI", "PatientManagementSys.UI\PatientManagementSys.UI.csproj", "{763742D5-1D91-40EE-9A4D-8630AFCC0EEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{957379C4-8F7D-4D0E-A826-F4975E20742E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{957379C4-8F7D-4D0E-A826-F4975E20742E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{957379C4-8F7D-4D0E-A826-F4975E20742E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{957379C4-8F7D-4D0E-A826-F4975E20742E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0404677F-23D7-46C7-8737-BA0067A3F5E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0404677F-23D7-46C7-8737-BA0067A3F5E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0404677F-23D7-46C7-8737-BA0067A3F5E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,7 +48,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{957379C4-8F7D-4D0E-A826-F4975E20742E} = {F62A621E-7A6F-45E8-9132-C1B67FECBF35}
 		{0404677F-23D7-46C7-8737-BA0067A3F5E7} = {F62A621E-7A6F-45E8-9132-C1B67FECBF35}
 		{9127ED10-3E77-4501-8FD0-6B5B3858A05F} = {F62A621E-7A6F-45E8-9132-C1B67FECBF35}
 		{0314A536-9C08-4C80-A0A6-E767728C9048} = {F62A621E-7A6F-45E8-9132-C1B67FECBF35}

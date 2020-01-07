@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using PatientManagementSys.Application.Common.Base;
 using PatientManagementSys.Application.Interfaces;
 using PatientManagementSys.Domain.Entities;
 using System;
@@ -10,28 +9,34 @@ using System.Threading.Tasks;
 
 namespace PatientManagementSys.Application.PatientCommands
 {
-    public class DeletePatientCommand : IRequest<PatientRecords>
+    public class DeletePatientCommand : IRequest
     {
-        private readonly PatientRecords patient;
+        private readonly long patientID;
 
-        public DeletePatientCommand(PatientRecords patient)
+        public DeletePatientCommand(long patientID)
         {
-            this.patient = patient;
+            this.patientID = patientID;
         }
 
-        public class DeletePatientCommandHandler : BaseRequestHandler, IRequestHandler<DeletePatientCommand, PatientRecords>
+        public class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand>
         {
-            public DeletePatientCommandHandler(IPatientManagementSysDbContext dbContext) : base(dbContext)
+            private readonly IPatientManagementSysDbContext dbContext;
+            public DeletePatientCommandHandler(IPatientManagementSysDbContext dbContext)
             {
-
+                this.dbContext = dbContext;
             }
-            public async Task<PatientRecords> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
             {
-                var c = dbContext.PatientRecords.Find(request.patient.ID);
-                dbContext.PatientRecords.Remove(c);
+                var c = dbContext.PatientRecords.Find(request.patientID);
 
-                await dbContext.SaveChangesAsync();
-                return c;
+                if (c != null)
+                {
+                    dbContext.PatientRecords.Remove(c);
+
+                    await dbContext.SaveChangesAsync();
+                }
+
+                return Unit.Value;
             }
         }
 
