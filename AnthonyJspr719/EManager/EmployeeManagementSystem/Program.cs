@@ -27,6 +27,13 @@ namespace Employee_Management_System
 
         static async Task Main(string[] args)
         {
+            await Mediator.Send(new SaveInfoCommand(new EmployeeInformation
+            {
+                Age = 15,
+                FirstName = "Vincent"
+            }));
+
+
 
             Console.WriteLine("EMPLOYEE INFORMATION SYSTEM");
             Console.WriteLine("YOUR OPTIONS");
@@ -85,6 +92,12 @@ namespace Employee_Management_System
                         Age = employeeAge,
                         DateOfBirth = born     
                     };
+
+                    var _res = await Mediator.Send(new SaveInfoCommand(new EmployeeInformation
+                    {
+                        Age = 2
+                    }));
+
 
                     var checkRes = await Mediator.Send(new CheckEmployeeAgeCommand(employeeInformation.Age));
 
