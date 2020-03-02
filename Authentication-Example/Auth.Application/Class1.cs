@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Authentication_Example
+namespace Auth.Application
 {
     public class Class1
     {
