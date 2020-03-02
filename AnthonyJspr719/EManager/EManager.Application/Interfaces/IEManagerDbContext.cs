@@ -15,6 +15,7 @@ namespace EManager.Application.Interfaces
 
         public DbSet<EmployeeTimeRecords> EmployeeTimeRecords { get; set; }
         
+        
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

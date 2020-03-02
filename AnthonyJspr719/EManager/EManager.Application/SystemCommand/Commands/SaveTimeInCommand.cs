@@ -11,17 +11,11 @@ using System.Threading.Tasks;
 
 namespace EManager.Application.SystemCommand.Commands
 {
-    public class SaveTimeInCommand : IRequest<EmployeeInformation>
-    {
+    public class SaveTimeInCommand : IRequest<int>
+    {      
+        public int ID { get; set; }
 
-        private readonly int id;
-      
-        public SaveTimeInCommand(int id)
-        {
-            this.id = id;     
-        }
-
-        public class SaveTimeInCommandHandler : IRequestHandler<SaveTimeInCommand, EmployeeInformation>
+        public class SaveTimeInCommandHandler : IRequestHandler<SaveTimeInCommand, int>
         {
             private readonly IEManagerDbContext dbContext;
             public SaveTimeInCommandHandler(IEManagerDbContext dbContext) 
@@ -29,14 +23,12 @@ namespace EManager.Application.SystemCommand.Commands
                 this.dbContext = dbContext;
             }
 
-            public async Task<EmployeeInformation> Handle(SaveTimeInCommand request, CancellationToken cancellationToken)
+            public async Task<int> Handle(SaveTimeInCommand request, CancellationToken cancellationToken)
             {
-
-                var _employeeToTimeIn = dbContext.EmployeeInformation.Find(request.id);
 
                  EmployeeTimeRecords _timeRecord = new EmployeeTimeRecords
                  {
-                      EmployeeInformationID = _employeeToTimeIn.ID,
+                      EmployeeInformationID = request.ID,
                       RecordType = RecordType.TimeIn,
                       Time = DateTime.Now
                  };
@@ -44,7 +36,7 @@ namespace EManager.Application.SystemCommand.Commands
                     dbContext.EmployeeTimeRecords.Add(_timeRecord);
                     await dbContext.SaveChangesAsync();
 
-                    return _employeeToTimeIn;
+                    return _timeRecord.EmployeeInformationID;
             }
         }
 

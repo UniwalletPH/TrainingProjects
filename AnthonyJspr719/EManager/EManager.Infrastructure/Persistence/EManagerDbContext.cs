@@ -13,6 +13,7 @@ namespace EManager.Infrastructure.Persistence
 
         public DbSet<EmployeeInformation> EmployeeInformation { get; set; }
         public DbSet<EmployeeTimeRecords> EmployeeTimeRecords { get; set; }
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         { 

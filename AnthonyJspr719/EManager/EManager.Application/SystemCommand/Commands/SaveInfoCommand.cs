@@ -1,6 +1,7 @@
-﻿
-using EManager.Application.Interfaces;
+﻿using EManager.Application.Interfaces;
+using EManager.Application.SystemCommand.Queries;
 using EManager.Domain.Entities;
+using EManager.Domain.Enums;
 using FluentValidation;
 using MediatR;
 using System;
@@ -13,30 +14,10 @@ namespace EManager.Application.SystemCommand.Commands
 {
     public class SaveInfoCommand : IRequest<int>
     {
-        private readonly EmployeeInformation employeeInformation;
+       
+        public UserVM EmployeeInfo { get; set; }
 
-        public SaveInfoCommand(EmployeeInformation employeeInformation) {
-
-            this.employeeInformation = employeeInformation;
-           
-        }
-
-        public class SaveInfoCommandValidator : AbstractValidator<SaveInfoCommand>
-        {
-            public SaveInfoCommandValidator(IMediator mediator)
-            {
-                RuleFor(a => a.employeeInformation.Age).GreaterThan(2);
-                RuleFor(a => a.employeeInformation.FirstName).NotNull();
-
-                List<string> _fistNames = new List<string>();
-                _fistNames.Add("Vincent");
-                _fistNames.Add("Enteng");
-
-                RuleFor(a => a.employeeInformation.FirstName)
-                    .Must(a => !_fistNames.Contains(a)).WithMessage("That name is already taken!");
-            }
-        }
-
+       
         public class SaveInfoCommandHandler :  IRequestHandler<SaveInfoCommand, int>
         {
             private readonly IEManagerDbContext dbContext;
@@ -48,21 +29,16 @@ namespace EManager.Application.SystemCommand.Commands
 
             public async Task<int> Handle(SaveInfoCommand request, CancellationToken cancellationToken)
             {
-                EmployeeInformation _employeeInformation = new EmployeeInformation 
-                {
-                    FirstName = request.employeeInformation.FirstName,
-                    MiddleName = request.employeeInformation.MiddleName,
-                    LastName = request.employeeInformation.LastName,
-                    Address = request.employeeInformation.Address,
-                    DateOfBirth = request.employeeInformation.DateOfBirth,
-                    Age = request.employeeInformation.Age
+
+                var _employeeInformation = new EmployeeInformation
+                { 
+                    FirstName = request.EmployeeInfo.Firstname,                  
+                    LastName = request.EmployeeInfo.Lastname,
+                    Address = request.EmployeeInfo.Address,
+                    Username = request.EmployeeInfo.Username,
+                    Password = request.EmployeeInfo.Password,  
+                    Role = UserRole.Regular
                 };
-
-                //if (_employeeInformation.Age > 1)
-                //{
-                //    throw new Exception();
-                //}
-
 
                 dbContext.EmployeeInformation.Add(_employeeInformation);
                 await dbContext.SaveChangesAsync();

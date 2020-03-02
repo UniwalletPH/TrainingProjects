@@ -27,14 +27,7 @@ namespace Employee_Management_System
 
         static async Task Main(string[] args)
         {
-            await Mediator.Send(new SaveInfoCommand(new EmployeeInformation
-            {
-                Age = 15,
-                FirstName = "Vincent"
-            }));
-
-
-
+           
             Console.WriteLine("EMPLOYEE INFORMATION SYSTEM");
             Console.WriteLine("YOUR OPTIONS");
             Console.WriteLine("1 - ADD EMPLOYEE");
@@ -83,27 +76,17 @@ namespace Employee_Management_System
 
 
                     
-                    EmployeeInformation employeeInformation = new EmployeeInformation
+                    var employeeInformation = new EmployeeInfoVM
                     {
                         FirstName = firstName,
                         MiddleName = middleName,
                         LastName = lastName,
                         Address = employeeAddress,
-                        Age = employeeAge,
-                        DateOfBirth = born     
+                      
                     };
 
-                    var _res = await Mediator.Send(new SaveInfoCommand(new EmployeeInformation
-                    {
-                        Age = 2
-                    }));
 
-
-                    var checkRes = await Mediator.Send(new CheckEmployeeAgeCommand(employeeInformation.Age));
-
-                    if (checkRes == true)
-                    {
-                        var res = await Mediator.Send(new SaveInfoCommand(employeeInformation));
+                    var res = await Mediator.Send(new SaveInfoCommand { EmployeeInfo = employeeInformation});
 
                         if (res > 0)
                         {
@@ -112,16 +95,7 @@ namespace Employee_Management_System
 
                         goto start;
 
-                    }
-
-                    else
-                    {
-                        Console.WriteLine("CAN'T SAVE!! UNDER AGE");
-                        goto start;
-
-                    }
-
-                 
+   
 
                 case "2":
 
@@ -270,7 +244,7 @@ namespace Employee_Management_System
 
                     foreach (var item in searchedEntries)
                     {
-                        Console.WriteLine("{0}   {1}   {2}  {3}   {4}", item.LastName, item.FirstName, item.MiddleName, item.DateOfBirth, item.Address);
+                        Console.WriteLine("{0}   {1}   {2}  {3}   {4}", item.LastName, item.FirstName, item.MiddleName, item.Address);
 
                     }
 
