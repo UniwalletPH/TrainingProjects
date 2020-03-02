@@ -45,7 +45,9 @@ namespace Student_Enrollment_System
             Console.WriteLine("7 - Add Subjects");
             Console.WriteLine("8 - Search Student Subjects By ID");
             Console.WriteLine("9 - Delete Student Subjects By ID");
-            Console.WriteLine("10 - EXIT");
+            Console.WriteLine("10 - Student Daily Time Record - Time In");
+            Console.WriteLine("11 - Student Daily Time Record - Time Out");
+            Console.WriteLine("15 - EXIT");
 
         start:
             Console.WriteLine();
@@ -227,10 +229,6 @@ namespace Student_Enrollment_System
                     var _deleteStudentID = Console.ReadLine();
                     int _deleteStudentSelectedID = int.Parse(_deleteStudentID);
 
-                    //StudentBasicInfo _deleteStudInfo = new StudentBasicInfo
-                    //{
-                    //    ID = _deleteStudentSelectedID
-                    //};
 
                     try
                     {
@@ -579,9 +577,81 @@ namespace Student_Enrollment_System
                 #endregion
 
 
-                //case 10: Exit Program
-                #region Exit Program
+                //case 10: Daily Time Record - Time In
+                #region Student Daily Time Record - Time In
                 case "10":
+
+                    Console.WriteLine("Good day!");
+                    timeinhere:
+                    Console.Write("Enter Student ID to Time In: ");
+                    var _studIDIn = Console.ReadLine();
+                    var _studIDTimeIn = int.Parse(_studIDIn);
+
+
+                    try
+                    {
+                        var _studentTimeIn = await Mediator.Send(new TimeInStudentIDCommand(_studIDTimeIn));
+
+                        if (_studentTimeIn == true)
+                        {
+                            Console.WriteLine("Student ID: {0} | Time In: {1} ", _studIDTimeIn, DateTime.Now);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Time in failed!");
+                        Console.WriteLine(ex.Message);
+                        goto timeinhere;
+                    }
+
+                    goto start;
+                #endregion
+
+
+                //case 11: Daily Time Record - Time Out
+                #region Student Daily Time Record - Time Out
+                case "11":
+
+                    Console.WriteLine("Good day!");
+                    timeouthere:
+                    Console.WriteLine("Enter Student ID to Time Out: ");
+                    var _studIDOut = Console.ReadLine();
+                    var _studIDTimeOut = int.Parse(_studIDOut);
+
+
+                    try
+                    {
+                        var _studentTimeOut = await Mediator.Send(new TimeOutStudentIDCommand(_studIDTimeOut));
+
+                        if (_studentTimeOut != null)
+                        {
+                            Console.WriteLine("Student ID: {0}", _studIDTimeOut);
+                            Console.WriteLine("Time In: {0} | Time Out: {1} ", _studentTimeOut, DateTime.Now);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Time in failed!");
+                        Console.WriteLine(ex.Message);
+                        goto timeouthere;
+                    }
+
+                    goto start;
+                #endregion
+
+                case "12":
+
+                    Console.Write("Enter Student ID to Time Out: ");
+                    var _studentIDOut = Console.ReadLine();
+                    var _studentIDTimeOut = int.Parse(_studentIDOut);
+
+                    goto start;
+
+                //case 15: Exit Program
+                #region Exit Program
+                case "15":
 
                     break;
                 #endregion

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using StudentEnrollmentSystem.Application.Interfaces;
 using StudentEnrollmentSystem.Domain.Entities;
+using StudentEnrollmentSystem.Domain.Entities.Base;
 
 namespace StudentEnrollmentSystem.Infrastructure.Persistence
 {
@@ -19,6 +20,14 @@ namespace StudentEnrollmentSystem.Infrastructure.Persistence
         public DbSet<StudentSubjectList> StudentSubjectLists { get; set; }
 
         public DbSet<StudentProfessor> StudentProfessors { get; set; }
+
+        public DbSet<StudentDTR> StudentDTRs { get; set; }
+
+        public DbSet<StudentTimeIn> StudentsTimeIn { get; set; }
+
+        public DbSet<StudentTimeOut> StudentsTimeOut { get; set; }
+
+        public DbSet<StudentDailyTimeRecord> StudentDailyTimeRecords { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,13 +1,7 @@
-﻿using FluentValidation;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using StudentEnrollmentSystem.Application.Common.Behaviors;
-using StudentEnrollmentSystem.Application.Schedule.Commands;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using static StudentEnrollmentSystem.Application.Schedule.Commands.SubjectDetailsCheckerCommand;
 
 namespace StudentEnrollmentSystem.Application
 {
@@ -19,7 +13,7 @@ namespace StudentEnrollmentSystem.Application
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
-            services.AddTransient(typeof(IValidator<SubjectDetailsCheckerCommand>), typeof(SubjectDetailsCheckerCommandValidator));
+            services.AddFluentValidation(Assembly.GetExecutingAssembly());
 
             return services;
         }
